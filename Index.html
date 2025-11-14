@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skyward Whispers - Enchanted Numbers</title>
-    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Updated Fonts: Inter (body), Playfair (headings), and Sacramento (title) -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@400;700&family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -130,6 +130,33 @@
             font-size: 3.5rem; /* Make it a little bigger */
             line-height: 1;
         }
+        
+        /* --- NEW DISCORD BUTTON STYLES AND ANIMATION --- */
+        .discord-button {
+            background-color: #5865F2; /* Discord's primary color */
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.5);
+        }
+        .discord-button:hover {
+            background-color: #4c57d9;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.7);
+        }
+        .discord-icon {
+            animation: spinAndPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes spinAndPulse {
+            0%, 100% { 
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: rotate(5deg) scale(1.02);
+                opacity: 0.9;
+            }
+        }
+        /* --- END NEW STYLES --- */
 
     </style>
 </head>
@@ -137,7 +164,6 @@
 
     <header class="header-bg shadow-lg sticky top-0 z-10">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <!-- Updated Title and Font -->
             <h1 class="text-blue-800 tracking-tight animated-header main-title-font">
                 Skyward Whispers
             </h1>
@@ -148,7 +174,7 @@
     </header>
 
     <main class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 main-content-bg mt-8 mb-12">
-        <!-- Number Card Section --><div class="text-center mb-10">
+        <div class="text-center mb-10">
             <h2 class="text-4xl font-extrabold text-gray-900 mb-4 font-playfair-display">
                 Whispers of Connection Across Worlds
             </h2>
@@ -157,10 +183,10 @@
             </p>
         </div>
 
-        <!-- Grid Container for Number Cards --><div id="number-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            <!-- Cards will be injected here by JavaScript --></div>
+        <div id="number-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            </div>
 
-        <!-- How to Buy Section --><section class="mt-16 bg-blue-50 p-8 rounded-xl shadow-inner text-center">
+        <section class="mt-16 bg-blue-50 p-8 rounded-xl shadow-inner text-center">
             <h3 class="text-2xl font-bold text-gray-800 mb-3">How to Acquire Your Number?</h3>
             <p class="text-lg text-gray-700">
                 Clicking 'Acquire Now' will open a magical portal to our sales team on WhatsApp (via <strong>+918812802705</strong>). We'll guide you through the process!
@@ -170,8 +196,13 @@
     </main>
 
     <footer class="text-white mt-12 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p>&copy; 2025 Skyward Whispers. All Rights Reserved.</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center space-y-4">
+            
+            <a href="https://discord.com/users/veynic" target="_blank" rel="noopener noreferrer" class="discord-button inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white shadow-sm hover:ring-2 hover:ring-offset-2 hover:ring-[#5865F2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5865F2]">
+                <i class="fab fa-discord fa-lg mr-3 discord-icon"></i>
+                Contact Developer (veynic)
+            </a>
+            <p class="mt-2">&copy; 2025 Skyward Whispers. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -283,4 +314,3 @@
     </script>
 </body>
 </html>
-
