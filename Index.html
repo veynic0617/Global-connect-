@@ -94,7 +94,8 @@
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Leave Your Feedback</h3>
                 <form id="review-form">
                     <input type="text" id="reviewer-name" placeholder="Your Name or Alias" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    <textarea type="text" id="review-text" placeholder="Share your experience..." rows="4" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    <!-- FIX: Removed type="text" from textarea -->
+                    <textarea id="review-text" placeholder="Share your experience..." rows="4" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
                     
                     <div id="review-message" class="mb-4 text-sm text-center font-medium hidden"></div>
 
@@ -160,7 +161,6 @@
                     userId = crypto.randomUUID(); 
                 }
                 isAuthReady = true;
-                // Once authenticated, start listening for real-time reviews
                 setupReviewsListener();
             });
         }
@@ -197,12 +197,9 @@
             `;
         }
         
-        // Function to combine and render all reviews (fake + real)
         function renderAllReviews(dbReviews = []) {
-            // Combine fake (initial) and real database reviews
             const allReviews = [...fakeReviews, ...dbReviews];
             
-            // Sort by timestamp (newest first). Handles both Firestore Timestamp and JS Date objects.
             allReviews.sort((a, b) => {
                 const timeA = a.timestamp.seconds ? a.timestamp.seconds : (a.timestamp.getTime ? a.timestamp.getTime() / 1000 : 0);
                 const timeB = b.timestamp.seconds ? b.timestamp.seconds : (b.timestamp.getTime ? b.timestamp.getTime() / 1000 : 0);
@@ -213,13 +210,10 @@
             container.innerHTML = allReviews.map(createReviewCard).join('');
         }
 
-        /**
-         * Listens to Firestore for real-time review updates.
-         */
         function setupReviewsListener() {
             if (!isAuthReady || !db) {
                 console.warn("Reviews listener cannot start: Auth not ready or DB missing.");
-                renderAllReviews([]); // Ensure at least fake reviews show
+                renderAllReviews([]);
                 return;
             }
 
@@ -236,21 +230,19 @@
                 
             }, (error) => {
                 console.error("Error reading reviews from Firestore:", error);
-                // Fallback: If DB fails, just show the fake reviews
                 renderAllReviews([]);
             });
         }
 
-        /**
-         * Handles the review submission form.
-         */
         async function handleReviewSubmit(e) {
             e.preventDefault();
             
+            // Get the value and trim any whitespace
             const name = document.getElementById('reviewer-name').value.trim();
             const text = document.getElementById('review-text').value.trim();
             const messageEl = document.getElementById('review-message');
 
+            // --- FIX: Check if the trimmed strings are empty ---
             if (!name || !text || !db) {
                 messageEl.textContent = "Please fill out both your name and review text.";
                 messageEl.className = "mb-4 text-sm text-center font-medium text-red-600";
