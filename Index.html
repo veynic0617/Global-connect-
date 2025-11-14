@@ -78,6 +78,13 @@
         <section class="mt-16">
             <h2 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Customer Reviews</h2>
             
+            <!-- Button to manually load reviews (backup/initial load) -->
+            <div class="text-center mb-6">
+                <button id="load-reviews-btn" class="py-2 px-6 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">
+                    Load Latest Reviews
+                </button>
+            </div>
+
             <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Reviews will be loaded here -->
             </div>
@@ -87,7 +94,7 @@
                 <h3 class="text-xl font-bold text-gray-800 mb-4">Leave Your Feedback</h3>
                 <form id="review-form">
                     <input type="text" id="reviewer-name" placeholder="Your Name or Alias" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    <textarea id="review-text" placeholder="Share your experience..." rows="4" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    <textarea type="text" id="review-text" placeholder="Share your experience..." rows="4" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
                     
                     <div id="review-message" class="mb-4 text-sm text-center font-medium hidden"></div>
 
@@ -102,7 +109,7 @@
 
     <footer class="bg-gray-800 text-white mt-12">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
-            <p>&copy; 2025 Global Connect. All Rights Reserved. User ID: <span id="user-id-display">Loading...</span></p>
+            <p>&copy; 2025 Global Connect. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -112,16 +119,14 @@
         import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- FIREBASE CONFIGURATION & INITIALIZATION ---
-        // Global variables provided by the Canvas environment
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
         let app, db, auth;
-        let userId = 'loading'; // Default placeholder
+        let userId = 'loading';
         let isAuthReady = false;
 
-        // Enable debug logging for Firebase
         setLogLevel('Debug');
 
         if (firebaseConfig) {
@@ -134,7 +139,6 @@
 
         // 1. Handle Authentication
         if (auth) {
-            // Set persistence to local to keep the user signed in across sessions
             setPersistence(auth, browserLocalPersistence)
                 .then(async () => {
                     if (initialAuthToken) {
@@ -145,7 +149,6 @@
                 })
                 .catch((error) => {
                     console.error("Authentication failed:", error);
-                    // Fallback to anonymous sign-in if custom token fails
                     signInAnonymously(auth).catch(e => console.error("Anon sign-in failed:", e));
                 });
             
@@ -154,10 +157,8 @@
                 if (user) {
                     userId = user.uid;
                 } else {
-                    // If sign-inAnonymously failed or was not called, create a random ID
                     userId = crypto.randomUUID(); 
                 }
-                document.getElementById('user-id-display').textContent = userId;
                 isAuthReady = true;
                 // Once authenticated, start listening for real-time reviews
                 setupReviewsListener();
@@ -167,31 +168,22 @@
 
         // --- REVIEWS DATA & LOGIC ---
 
-        // Pre-populated fake reviews
         const fakeReviews = [
             { id: 'fake-1', name: 'R. Sharma', text: 'Got my Japan number in minutes! Verification was seamless. Highly recommend for international business.', rating: 5, timestamp: new Date(Date.now() - 86400000) },
             { id: 'fake-2', name: 'Chris W.', text: 'The Netherlands code worked perfectly for my project. Great customer service via WhatsApp.', rating: 5, timestamp: new Date(Date.now() - 172800000) },
             { id: 'fake-3', name: 'Lê Văn', text: 'Needed a Vietnam number quickly. The process was fast and the price was fair.', rating: 4, timestamp: new Date(Date.now() - 259200000) }
         ];
 
-        /**
-         * Renders a star rating (currently hardcoded as 5 stars for simplicity)
-         * @param {number} rating - The star rating (1-5).
-         * @returns {string} HTML string of star icons.
-         */
         function renderRating(rating) {
             const starIcon = `<span class="text-yellow-400">★</span>`;
             return starIcon.repeat(rating);
         }
 
-        /**
-         * Renders a single review card.
-         * @param {object} review - The review data.
-         * @returns {string} The HTML string for the review card.
-         */
         function createReviewCard(review) {
-            const dateStr = review.timestamp ? new Date(review.timestamp.seconds * 1000 || review.timestamp).toLocaleDateString() : 'Just now';
-            const rating = review.rating || 5; // Default to 5 stars
+            // Handle both Firestore Timestamp (seconds) and JS Date object (getTime())
+            const timestamp = review.timestamp.seconds ? review.timestamp.seconds * 1000 : (review.timestamp.getTime ? review.timestamp.getTime() : Date.now());
+            const dateStr = new Date(timestamp).toLocaleDateString();
+            const rating = review.rating || 5; 
             
             return `
                 <div class="review-card">
@@ -204,44 +196,53 @@
                 </div>
             `;
         }
+        
+        // Function to combine and render all reviews (fake + real)
+        function renderAllReviews(dbReviews = []) {
+            // Combine fake (initial) and real database reviews
+            const allReviews = [...fakeReviews, ...dbReviews];
+            
+            // Sort by timestamp (newest first). Handles both Firestore Timestamp and JS Date objects.
+            allReviews.sort((a, b) => {
+                const timeA = a.timestamp.seconds ? a.timestamp.seconds : (a.timestamp.getTime ? a.timestamp.getTime() / 1000 : 0);
+                const timeB = b.timestamp.seconds ? b.timestamp.seconds : (b.timestamp.getTime ? b.timestamp.getTime() / 1000 : 0);
+                return timeB - timeA;
+            });
+            
+            const container = document.getElementById('reviews-container');
+            container.innerHTML = allReviews.map(createReviewCard).join('');
+        }
 
         /**
          * Listens to Firestore for real-time review updates.
          */
         function setupReviewsListener() {
-            if (!isAuthReady || !db) return;
+            if (!isAuthReady || !db) {
+                console.warn("Reviews listener cannot start: Auth not ready or DB missing.");
+                renderAllReviews([]); // Ensure at least fake reviews show
+                return;
+            }
 
             const reviewsCollectionPath = `/artifacts/${appId}/public/data/reviews`;
             const q = query(collection(db, reviewsCollectionPath));
 
-            // Listen for real-time updates
             onSnapshot(q, (snapshot) => {
                 let dbReviews = [];
                 snapshot.forEach((doc) => {
-                    // Filter out the initial fake reviews if they somehow made it to DB
-                    if (!doc.id.startsWith('fake-')) {
-                         dbReviews.push({ id: doc.id, ...doc.data() });
-                    }
+                    dbReviews.push({ id: doc.id, ...doc.data() });
                 });
 
-                // Combine fake (initial) and real database reviews
-                const allReviews = [...fakeReviews, ...dbReviews];
-                allReviews.sort((a, b) => (b.timestamp.seconds || b.timestamp.getTime()) - (a.timestamp.seconds || a.timestamp.getTime()));
-                
-                const container = document.getElementById('reviews-container');
-                container.innerHTML = allReviews.map(createReviewCard).join('');
+                renderAllReviews(dbReviews);
                 
             }, (error) => {
                 console.error("Error reading reviews from Firestore:", error);
                 // Fallback: If DB fails, just show the fake reviews
-                const container = document.getElementById('reviews-container');
-                container.innerHTML = fakeReviews.map(createReviewCard).join('');
+                renderAllReviews([]);
             });
         }
 
         /**
          * Handles the review submission form.
-         * @param {Event} e - The form submission event.
          */
         async function handleReviewSubmit(e) {
             e.preventDefault();
@@ -251,7 +252,7 @@
             const messageEl = document.getElementById('review-message');
 
             if (!name || !text || !db) {
-                messageEl.textContent = "Please fill out all fields.";
+                messageEl.textContent = "Please fill out both your name and review text.";
                 messageEl.className = "mb-4 text-sm text-center font-medium text-red-600";
                 messageEl.classList.remove('hidden');
                 return;
@@ -262,20 +263,17 @@
                 await addDoc(collection(db, reviewsCollectionPath), {
                     name: name,
                     text: text,
-                    rating: 5, // Hardcoded 5 stars for simplicity
+                    rating: 5, 
                     timestamp: serverTimestamp(),
                     userId: userId 
                 });
 
-                // Success message
                 messageEl.textContent = "Thank you! Your review has been submitted.";
                 messageEl.className = "mb-4 text-sm text-center font-medium text-green-600";
                 messageEl.classList.remove('hidden');
 
-                // Clear form
                 document.getElementById('review-form').reset();
                 
-                // Hide message after a few seconds
                 setTimeout(() => messageEl.classList.add('hidden'), 5000);
 
             } catch (error) {
@@ -356,14 +354,22 @@
         window.onload = () => {
             renderCards();
             
-            // Attach event listener for the review form submission
+            // Initial render of reviews (will show fake ones while waiting for auth/DB)
+            renderAllReviews(); 
+
             const reviewForm = document.getElementById('review-form');
             if (reviewForm) {
                 reviewForm.addEventListener('submit', handleReviewSubmit);
             }
+
+            // Attach listener to the new "Load Reviews" button
+            const loadBtn = document.getElementById('load-reviews-btn');
+            if (loadBtn) {
+                loadBtn.addEventListener('click', setupReviewsListener);
+            }
         };
 
-        // Note: setupReviewsListener is called after successful authentication via onAuthStateChanged
+        // Note: setupReviewsListener is also called automatically after successful authentication
 
     </script>
 </body>
