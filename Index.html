@@ -3,15 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Connect - International WhatsApp Numbers</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Skyward Whispers - Enchanted Numbers</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Updated Fonts: Inter (body), Playfair (headings), and Sacramento (title) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@400;700&family=Sacramento&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f8f8;
+            background-color: #f0f8ff; /* Light, ethereal background */
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh; /* Ensure full height for background */
         }
+        
+        /* Elaina Themed Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/C0VdMv3/elaina-background.jpg'); /* Your Elaina image URL */
+            background-size: cover;
+            background-position: center bottom; /* Adjust to focus on Elaina */
+            background-repeat: no-repeat;
+            opacity: 0.2; /* Subtle opacity */
+            z-index: -1;
+            animation: fadeInBackground 2s ease-out forwards;
+        }
+
+        @keyframes fadeInBackground {
+            from { opacity: 0; transform: scale(1.05); }
+            to { opacity: 0.2; transform: scale(1); }
+        }
+
+        .header-bg {
+            background: linear-gradient(to right, #e0f2fe, #d1e9ff); /* Soft blue gradient */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content-bg {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for content readability */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(5px); /* Soft blur effect */
+        }
+
         /* Custom styles for the Premium card (Japan) */
         .premium-card {
             background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); /* Gold/Orange gradient */
@@ -20,7 +58,8 @@
             border: 3px solid #FFD700;
             transform: scale(1.05); /* Slightly bigger */
             transition: all 0.3s ease-in-out;
-            position: relative; /* Needed for absolute positioning of the badge */
+            position: relative;
+            animation: cardFloat 3s ease-in-out infinite alternate;
         }
         .premium-card:hover {
             transform: scale(1.08);
@@ -29,255 +68,115 @@
         .premium-flag {
             font-size: 3.5rem; /* Larger flag */
         }
-        .review-card {
-            background-color: white;
+
+        .number-card {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
             padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
         }
+        .number-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes cardFloat {
+            0% { transform: translateY(0) scale(1.05); }
+            100% { transform: translateY(-5px) scale(1.05); }
+        }
+
+        /* Subtle particle animation (magic dust) */
+        .magic-particles {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: twinkle 4s ease-in-out infinite alternate;
+            opacity: 0;
+            z-index: 0; /* Behind card content */
+        }
+
+        @keyframes twinkle {
+            0%, 100% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        /* Animation for header text */
+        .animated-header {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Style for the footer */
+        footer {
+            background-color: rgba(45, 55, 72, 0.9); /* Slightly transparent dark footer */
+            backdrop-filter: blur(3px);
+            color: #e2e8f0;
+        }
+
+        /* Custom Font for Main Title */
+        .main-title-font {
+            font-family: 'Sacramento', cursive;
+            font-weight: 400; /* Match the font weight */
+            font-size: 3.5rem; /* Make it a little bigger */
+            line-height: 1;
+        }
+
     </style>
 </head>
 <body class="min-h-screen">
 
-    <header class="bg-white shadow-lg sticky top-0 z-10">
+    <header class="header-bg shadow-lg sticky top-0 z-10">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold text-blue-800 tracking-tight">
-                Global Connect
+            <!-- Updated Title and Font -->
+            <h1 class="text-blue-800 tracking-tight animated-header main-title-font">
+                Skyward Whispers
             </h1>
-            <p class="text-sm font-semibold text-gray-600 hidden sm:block">
-                Virtual Numbers for Seamless WhatsApp Communication
+            <p class="text-sm font-semibold text-gray-700 hidden sm:block">
+                Journey with seamless global communication
             </p>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-        <!-- Number Card Section -->
-        <div class="text-center mb-10">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
-                Available International Numbers
+    <main class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 main-content-bg mt-8 mb-12">
+        <!-- Number Card Section --><div class="text-center mb-10">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4 font-playfair-display">
+                Whispers of Connection Across Worlds
             </h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Select your desired country code and connect instantly. All purchases are handled securely via WhatsApp.
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+                Discover virtual numbers, like spells, for instant WhatsApp verification and global communication.
             </p>
         </div>
 
-        <!-- Grid Container for Number Cards -->
-        <div id="number-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            <!-- Cards will be injected here by JavaScript -->
-        </div>
+        <!-- Grid Container for Number Cards --><div id="number-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- Cards will be injected here by JavaScript --></div>
 
-        <!-- How to Buy Section -->
-        <section class="mt-16 bg-gray-100 p-8 rounded-xl shadow-inner text-center">
-            <h3 class="text-2xl font-bold text-gray-800 mb-3">How to Buy?</h3>
-            <p class="text-lg text-gray-600">
-                Clicking 'Buy Now' will open a chat with our sales team on WhatsApp (via <strong>+918812802705</strong>). We'll process your request immediately!
+        <!-- How to Buy Section --><section class="mt-16 bg-blue-50 p-8 rounded-xl shadow-inner text-center">
+            <h3 class="text-2xl font-bold text-gray-800 mb-3">How to Acquire Your Number?</h3>
+            <p class="text-lg text-gray-700">
+                Clicking 'Acquire Now' will open a magical portal to our sales team on WhatsApp (via <strong>+918812802705</strong>). We'll guide you through the process!
             </p>
         </section>
         
-        <!-- Customer Reviews Section -->
-        <section class="mt-16">
-            <h2 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Customer Reviews</h2>
-            
-            <!-- Button to manually load reviews (backup/initial load) -->
-            <div class="text-center mb-6">
-                <button id="load-reviews-btn" class="py-2 px-6 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition duration-150">
-                    Load Latest Reviews
-                </button>
-            </div>
-
-            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Reviews will be loaded here -->
-            </div>
-
-            <!-- Review Submission Form -->
-            <div class="mt-12 max-w-xl mx-auto bg-white p-6 rounded-xl shadow-2xl">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">Leave Your Feedback</h3>
-                <form id="review-form">
-                    <input type="text" id="reviewer-name" placeholder="Your Name or Alias" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    <!-- FIX: Removed type="text" from textarea -->
-                    <textarea id="review-text" placeholder="Share your experience..." rows="4" required class="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
-                    
-                    <div id="review-message" class="mb-4 text-sm text-center font-medium hidden"></div>
-
-                    <button type="submit" class="w-full py-3 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-700 transition duration-150">
-                        Submit Review
-                    </button>
-                </form>
-            </div>
-        </section>
-
     </main>
 
-    <footer class="bg-gray-800 text-white mt-12">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
-            <p>&copy; 2025 Global Connect. All Rights Reserved.</p>
+    <footer class="text-white mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Skyward Whispers. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, serverTimestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // --- FIREBASE CONFIGURATION & INITIALIZATION ---
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        let app, db, auth;
-        let userId = 'loading';
-        let isAuthReady = false;
-
-        setLogLevel('Debug');
-
-        if (firebaseConfig) {
-            app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-        } else {
-            console.error("Firebase configuration is missing.");
-        }
-
-        // 1. Handle Authentication
-        if (auth) {
-            setPersistence(auth, browserLocalPersistence)
-                .then(async () => {
-                    if (initialAuthToken) {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Authentication failed:", error);
-                    signInAnonymously(auth).catch(e => console.error("Anon sign-in failed:", e));
-                });
-            
-            // Listener for authentication state changes
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    userId = user.uid;
-                } else {
-                    userId = crypto.randomUUID(); 
-                }
-                isAuthReady = true;
-                setupReviewsListener();
-            });
-        }
-
-
-        // --- REVIEWS DATA & LOGIC ---
-
-        const fakeReviews = [
-            { id: 'fake-1', name: 'R. Sharma', text: 'Got my Japan number in minutes! Verification was seamless. Highly recommend for international business.', rating: 5, timestamp: new Date(Date.now() - 86400000) },
-            { id: 'fake-2', name: 'Chris W.', text: 'The Netherlands code worked perfectly for my project. Great customer service via WhatsApp.', rating: 5, timestamp: new Date(Date.now() - 172800000) },
-            { id: 'fake-3', name: 'Lê Văn', text: 'Needed a Vietnam number quickly. The process was fast and the price was fair.', rating: 4, timestamp: new Date(Date.now() - 259200000) }
-        ];
-
-        function renderRating(rating) {
-            const starIcon = `<span class="text-yellow-400">★</span>`;
-            return starIcon.repeat(rating);
-        }
-
-        function createReviewCard(review) {
-            // Handle both Firestore Timestamp (seconds) and JS Date object (getTime())
-            const timestamp = review.timestamp.seconds ? review.timestamp.seconds * 1000 : (review.timestamp.getTime ? review.timestamp.getTime() : Date.now());
-            const dateStr = new Date(timestamp).toLocaleDateString();
-            const rating = review.rating || 5; 
-            
-            return `
-                <div class="review-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <div class="text-lg font-bold text-gray-900">${review.name}</div>
-                        <div class="text-sm text-gray-500">${dateStr}</div>
-                    </div>
-                    <div class="mb-3">${renderRating(rating)}</div>
-                    <p class="text-gray-700 italic">${review.text}</p>
-                </div>
-            `;
-        }
-        
-        function renderAllReviews(dbReviews = []) {
-            const allReviews = [...fakeReviews, ...dbReviews];
-            
-            allReviews.sort((a, b) => {
-                const timeA = a.timestamp.seconds ? a.timestamp.seconds : (a.timestamp.getTime ? a.timestamp.getTime() / 1000 : 0);
-                const timeB = b.timestamp.seconds ? b.timestamp.seconds : (b.timestamp.getTime ? b.timestamp.getTime() / 1000 : 0);
-                return timeB - timeA;
-            });
-            
-            const container = document.getElementById('reviews-container');
-            container.innerHTML = allReviews.map(createReviewCard).join('');
-        }
-
-        function setupReviewsListener() {
-            if (!isAuthReady || !db) {
-                console.warn("Reviews listener cannot start: Auth not ready or DB missing.");
-                renderAllReviews([]);
-                return;
-            }
-
-            const reviewsCollectionPath = `/artifacts/${appId}/public/data/reviews`;
-            const q = query(collection(db, reviewsCollectionPath));
-
-            onSnapshot(q, (snapshot) => {
-                let dbReviews = [];
-                snapshot.forEach((doc) => {
-                    dbReviews.push({ id: doc.id, ...doc.data() });
-                });
-
-                renderAllReviews(dbReviews);
-                
-            }, (error) => {
-                console.error("Error reading reviews from Firestore:", error);
-                renderAllReviews([]);
-            });
-        }
-
-        async function handleReviewSubmit(e) {
-            e.preventDefault();
-            
-            // Get the value and trim any whitespace
-            const name = document.getElementById('reviewer-name').value.trim();
-            const text = document.getElementById('review-text').value.trim();
-            const messageEl = document.getElementById('review-message');
-
-            // --- FIX: Check if the trimmed strings are empty ---
-            if (!name || !text || !db) {
-                messageEl.textContent = "Please fill out both your name and review text.";
-                messageEl.className = "mb-4 text-sm text-center font-medium text-red-600";
-                messageEl.classList.remove('hidden');
-                return;
-            }
-
-            try {
-                const reviewsCollectionPath = `/artifacts/${appId}/public/data/reviews`;
-                await addDoc(collection(db, reviewsCollectionPath), {
-                    name: name,
-                    text: text,
-                    rating: 5, 
-                    timestamp: serverTimestamp(),
-                    userId: userId 
-                });
-
-                messageEl.textContent = "Thank you! Your review has been submitted.";
-                messageEl.className = "mb-4 text-sm text-center font-medium text-green-600";
-                messageEl.classList.remove('hidden');
-
-                document.getElementById('review-form').reset();
-                
-                setTimeout(() => messageEl.classList.add('hidden'), 5000);
-
-            } catch (error) {
-                console.error("Error submitting review:", error);
-                messageEl.textContent = "Error submitting review. Please try again.";
-                messageEl.className = "mb-4 text-sm text-center font-medium text-red-600";
-                messageEl.classList.remove('hidden');
-            }
-        }
-
-
-        // --- NUMBER CARD RENDERING LOGIC (Original) ---
+        // --- NUMBER CARD RENDERING LOGIC ---
 
         const numberData = [
             { country: 'Japan', code: '+81', flag: '🇯🇵', isPremium: true },
@@ -301,32 +200,32 @@
         function createCard(data) {
             const isPremium = data.isPremium;
 
-            let cardClasses = 'bg-white p-6 rounded-2xl shadow-xl flex flex-col items-center text-center transition-all duration-300 hover:shadow-2xl relative';
+            let cardClasses = 'number-card p-6 rounded-2xl flex flex-col items-center text-center';
             let buttonClasses = 'w-full py-3 mt-4 text-white font-bold rounded-xl shadow-lg transition-transform duration-200 transform hover:scale-[1.02]';
             let flagClasses = 'text-6xl mb-4';
 
             if (isPremium) {
-                cardClasses = 'premium-card p-6 rounded-2xl flex flex-col items-center text-center transition-all duration-300 transform scale-105 hover:scale-108 relative';
+                cardClasses = 'premium-card p-6 rounded-2xl flex flex-col items-center text-center';
                 buttonClasses = 'w-full py-3 mt-4 bg-gray-900 text-white font-extrabold rounded-xl shadow-xl transition-transform duration-200 transform hover:scale-[1.02] hover:bg-gray-700';
                 flagClasses = 'premium-flag mb-4';
             } else {
                 buttonClasses += ' bg-blue-600 hover:bg-blue-700';
             }
 
-            const prefilledMessage = encodeURIComponent(`I am interested in purchasing a WhatsApp number for ${data.country} (${data.code}). Please assist me with the process.`);
+            const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me with this magical connection.`);
             const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
             
             return `
                 <div class="${cardClasses}">
-                    ${isPremium ? '<div class="absolute top-2 right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-md">PREMIUM</div>' : ''}
+                    ${isPremium ? '<div class="absolute top-2 right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">PREMIUM</div>' : ''}
                     <div class="${flagClasses}" role="img" aria-label="Flag of ${data.country}">${data.flag}</div>
                     <h3 class="text-2xl font-extrabold mb-1 ${isPremium ? 'text-gray-900' : 'text-gray-800'}">${data.country}</h3>
                     <p class="text-4xl font-black mb-4 ${isPremium ? 'text-gray-800' : 'text-blue-600'}">${data.code}</p>
                     <p class="text-sm ${isPremium ? 'text-gray-800' : 'text-gray-500'} mb-4">
-                        Dedicated virtual number for WhatsApp verification and international communication.
+                        A dedicated virtual number, touched by magic, for your global connections.
                     </p>
                     <a href="${waLink}" target="_blank" class="${buttonClasses}">
-                        Buy Now
+                        Acquire Now
                     </a>
                 </div>
             `;
@@ -341,27 +240,45 @@
                 console.error("Number cards container not found.");
             }
         }
+        
+        // Function to create and animate magic particles
+        function createMagicParticle(parentEl) {
+            const particle = document.createElement('div');
+            particle.className = 'magic-particles';
+            parentEl.appendChild(particle);
+
+            const size = Math.random() * 8 + 4; // 4-12px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            const startX = Math.random() * parentEl.offsetWidth;
+            const startY = Math.random() * parentEl.offsetHeight;
+            particle.style.left = `${startX}px`;
+            particle.style.top = `${startY}px`;
+
+            const duration = Math.random() * 3 + 2; // 2-5s
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `-${Math.random() * duration}s`; // Stagger animation start
+
+            // Remove particle after animation ends to prevent accumulation
+            particle.addEventListener('animationend', () => particle.remove());
+        }
+
+        // Add particles to each card
+        function addParticlesToCards() {
+            const cards = document.querySelectorAll('.number-card, .premium-card');
+            cards.forEach(card => {
+                for (let i = 0; i < 5; i++) { // 5 particles per card
+                    createMagicParticle(card);
+                }
+            });
+        }
 
         // --- INITIALIZATION ---
         window.onload = () => {
             renderCards();
-            
-            // Initial render of reviews (will show fake ones while waiting for auth/DB)
-            renderAllReviews(); 
-
-            const reviewForm = document.getElementById('review-form');
-            if (reviewForm) {
-                reviewForm.addEventListener('submit', handleReviewSubmit);
-            }
-
-            // Attach listener to the new "Load Reviews" button
-            const loadBtn = document.getElementById('load-reviews-btn');
-            if (loadBtn) {
-                loadBtn.addEventListener('click', setupReviewsListener);
-            }
+            addParticlesToCards();
         };
-
-        // Note: setupReviewsListener is also called automatically after successful authentication
 
     </script>
 </body>
