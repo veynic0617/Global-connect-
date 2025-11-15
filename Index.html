@@ -123,16 +123,6 @@
             color: #e2e8f0;
         }
 
-        /* Custom Font for Main Title - REMOVED SACRAMENTO */
-        /*
-        .main-title-font {
-            font-family: 'Sacramento', cursive;
-            font-weight: 400; 
-            font-size: 3.5rem; 
-            line-height: 1;
-        }
-        */
-
         /* --- NEW DISCORD BUTTON STYLES AND ANIMATION --- */
         .discord-button {
             background-color: #5865F2; /* Discord's primary color */
@@ -257,10 +247,11 @@
             { country: 'Tajikistan', code: '+992', flag: '🇹🇯' },
             { country: 'Azerbaijan', code: '+994', flag: '🇦🇿' },
             { country: 'Sri Lanka', code: '+94', flag: '🇱🇰' },
-            { country: 'Myanmar', code: '+95', flag: '🇲🇲'    
-        ];
+            { country: 'Myanmar', code: '+95', flag: '🇲🇲' }
+        ]; // <-- MISSING CLOSING CURLY BRACE ADDED HERE
 
-        const whatsappNumber = '919707874918';
+        // Changed to match the number mentioned in the HTML text for consistency
+        const whatsappNumber = '918812802705'; 
         
         function createCard(data) {
             const isPremium = data.isPremium;
