@@ -1,119 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Skyward Whispers — Numbers</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root{--accent:#4f46e5;--soft:#eef6ff}
-    html,body{height:100%}
-    body{font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--soft),#f7fbff);margin:0;color:#0f172a}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyward Whispers - Enchanted Numbers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@400;700&family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f8ff; /* Light, ethereal background */
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh; /* Ensure full height for background */
+        }
+        
+        /* Elaina Themed Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.ibb.co/C0VdMv3/elaina-background.jpg'); /* Your Elaina image URL */
+            background-size: cover;
+            background-position: center bottom; /* Adjust to focus on Elaina */
+            background-repeat: no-repeat;
+            opacity: 0.2; /* Subtle opacity */
+            z-index: -1;
+            animation: fadeInBackground 2s ease-out forwards;
+        }
 
-    /* header - simplified, no logo mark */
-    header{position:sticky;top:0;background:rgba(255,255,255,0.8);backdrop-filter:blur(6px);border-bottom:1px solid rgba(15,23,42,0.04);z-index:30}
-    .container{max-width:1200px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
-    .site-title{font-family:'Playfair Display', serif;font-size:1.5rem;color:var(--accent);font-weight:700}
-    .site-sub{font-size:0.9rem;color:rgba(15,23,42,0.6)}
+        @keyframes fadeInBackground {
+            from { opacity: 0; transform: scale(1.05); }
+            to { opacity: 0.2; transform: scale(1); }
+        }
 
-    /* main layout */
-    main{max-width:1200px;margin:20px auto;padding:20px}
-    .intro{background:white;padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(8,10,25,0.04)}
-    .intro h2{margin:0 0 6px;font-family:'Playfair Display',serif}
-    .intro p{margin:0;color:rgba(15,23,42,0.7)}
+        .header-bg {
+            background: linear-gradient(to right, #e0f2fe, #d1e9ff); /* Soft blue gradient */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    /* numbers grid - clearly visible */
-    .grid{margin-top:18px;display:grid;grid-template-columns:repeat(1,1fr);gap:14px}
-    @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card{background:white;padding:18px;border-radius:10px;border:1px solid rgba(15,23,42,0.04);display:flex;flex-direction:column;gap:8px;min-height:140px}
-    .flag{font-size:2.4rem}
-    .country{font-weight:700}
-    .code{font-weight:800;font-size:1.4rem;color:var(--accent)}
-    .desc{color:rgba(15,23,42,0.65);font-size:0.95rem}
+        .main-content-bg {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for content readability */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(5px); /* Soft blur effect */
+        }
 
-    .cta{margin-top:auto;display:inline-block;padding:10px 12px;border-radius:8px;text-decoration:none;font-weight:700;background:var(--accent);color:white}
+        /* Custom styles for the Premium card (Japan) */
+        .premium-card {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); /* Gold/Orange gradient */
+            box-shadow: 0 15px 30px rgba(255, 165, 0, 0.4);
+            color: #1a202c; /* Dark text for contrast */
+            border: 3px solid #FFD700;
+            transform: scale(1.05); /* Slightly bigger */
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            animation: cardFloat 3s ease-in-out infinite alternate;
+        }
+        .premium-card:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 40px rgba(255, 165, 0, 0.6);
+        }
+        .premium-flag {
+            font-size: 3.5rem; /* Larger flag */
+        }
 
-    /* footer simple */
-    footer{max-width:1200px;margin:18px auto;padding:14px 18px;color:rgba(15,23,42,0.7)}
+        .number-card {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .number-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        }
 
-    /* remove flashy animations - keep subtle fade for smoothness */
-    .fade-in{opacity:0;transform:translateY(6px);transition:opacity .45s ease, transform .45s ease}
-    .fade-in.visible{opacity:1;transform:none}
+        @keyframes cardFloat {
+            0% { transform: translateY(0) scale(1.05); }
+            100% { transform: translateY(-5px) scale(1.05); }
+        }
 
-  </style>
+        /* Subtle particle animation (magic dust) */
+        .magic-particles {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: twinkle 4s ease-in-out infinite alternate;
+            opacity: 0;
+            z-index: 0; /* Behind card content */
+        }
+
+        @keyframes twinkle {
+            0%, 100% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        /* Animation for header text */
+        .animated-header {
+            animation: slideInLeft 1s ease-out forwards;
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Style for the footer */
+        footer {
+            background-color: rgba(45, 55, 72, 0.9); /* Slightly transparent dark footer */
+            backdrop-filter: blur(3px);
+            color: #e2e8f0;
+        }
+
+        /* Custom Font for Main Title - REMOVED SACRAMENTO */
+        /*
+        .main-title-font {
+            font-family: 'Sacramento', cursive;
+            font-weight: 400; 
+            font-size: 3.5rem; 
+            line-height: 1;
+        }
+        */
+
+        /* --- NEW DISCORD BUTTON STYLES AND ANIMATION --- */
+        .discord-button {
+            background-color: #5865F2; /* Discord's primary color */
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.5);
+        }
+        .discord-button:hover {
+            background-color: #4c57d9;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.7);
+        }
+        .discord-icon {
+            animation: spinAndPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes spinAndPulse {
+            0%, 100% { 
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: rotate(5deg) scale(1.02);
+                opacity: 0.9;
+            }
+        }
+        /* --- END NEW STYLES --- */
+
+        /* --- NEW ELAINA-THEMED HEADER STYLES --- */
+        .elaina-header-title {
+            /* Using Playfair Display for elegance, with a slight tilt */
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; /* Slightly smaller and more elegant */
+            font-weight: 700;
+            /* Ethereal color */
+            color: #6a0dad; /* Deep Purple */
+            text-shadow: 1px 1px 3px rgba(106, 13, 173, 0.3);
+            transition: all 0.5s ease-in-out;
+        }
+        .elaina-header-title:hover {
+            color: #4b0082; /* Indigo/darker purple on hover */
+            transform: scale(1.02);
+        }
+        .elaina-icon {
+            color: #ffd700; /* Gold/yellow for the star */
+            font-size: 1.5rem;
+            /* Animation for the star icon */
+            animation: twinkleStar 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes twinkleStar {
+            from { opacity: 0.8; transform: rotate(0deg) scale(1); }
+            to { opacity: 1; transform: rotate(5deg) scale(1.1); }
+        }
+        /* --- END NEW ELAINA-THEMED HEADER STYLES --- */
+
+    </style>
 </head>
-<body>
-  <header>
-    <div class="container">
-      <div>
-        <div class="site-title">Skyward Whispers</div>
-        <div class="site-sub">Global virtual numbers — simple, clear, reliable</div>
-      </div>
-      <!-- removed logo mark, links, and any AI-ish flair per request -->
-      <div style="font-weight:600;color:rgba(15,23,42,0.6);font-size:0.95rem">Contact: +91 88128 02705</div>
-    </div>
-  </header>
+<body class="min-h-screen">
 
-  <main>
-    <section class="intro fade-in" id="intro">
-      <h2>Available Number Countries</h2>
-      <p>Click a country to open WhatsApp and request the number. No flashy badges — just the list.</p>
+    <header class="header-bg shadow-lg sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            
+            <div class="flex items-center space-x-2 animated-header">
+                <i class="fas fa-hat-wizard elaina-icon"></i>
+                <h1 class="elaina-header-title tracking-tight">
+                    Skyward Whispers
+                </h1>
+            </div>
+            <p class="text-sm font-semibold text-gray-700 hidden sm:block">
+                Journey with seamless global communication
+            </p>
+        </div>
+    </header>
 
-      <div class="grid" id="number-cards-container" aria-live="polite">
-        <!-- cards injected here -->
-      </div>
-    </section>
-  </main>
+    <main class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 main-content-bg mt-8 mb-12">
+        <div class="text-center mb-10">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4 font-playfair-display">
+                Whispers of Connection Across Worlds
+            </h2>
+            <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+                Discover virtual numbers, like spells, for instant WhatsApp verification and global communication.
+            </p>
+        </div>
 
-  <footer>
-    Skyward Whispers • © 2025 • All rights reserved
-  </footer>
+        <div id="number-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            </div>
 
-  <script>
-    // simple data and render. kept minimal and explicit so it's obvious on PC
-    const numberData = [
-      { country: 'Japan', code: '+81', flag: '🇯🇵', isPremium: true },
-      { country: 'USA', code: '+1', flag: '🇺🇸' },
-      { country: 'Vietnam', code: '+84', flag: '🇻🇳' },
-      { country: 'Colombia', code: '+57', flag: '🇨🇴' },
-      { country: 'Netherlands', code: '+31', flag: '🇳🇱' },
-      { country: 'Afghanistan', code: '+93', flag: '🇦🇫' },
-      { country: 'Nepal', code: '+977', flag: '🇳🇵' },
-      { country: 'Zambia', code: '+260', flag: '🇿🇲' },
-      { country: 'Egypt', code: '+20', flag: '🇪🇬' },
-      { country: 'Senegal', code: '+221', flag: '🇸🇳' },
-      { country: 'Venezuela', code: '+58', flag: '🇻🇪' },
-      { country: 'Tajikistan', code: '+992', flag: '🇹🇯' },
-      { country: 'Azerbaijan', code: '+994', flag: '🇦🇿' },
-      { country: 'Sri Lanka', code: '+94', flag: '🇱🇰' },
-    ];
+        <section class="mt-16 bg-blue-50 p-8 rounded-xl shadow-inner text-center">
+            <h3 class="text-2xl font-bold text-gray-800 mb-3">How to Acquire Your Number?</h3>
+            <p class="text-lg text-gray-700">
+                Clicking 'Acquire Now' will open a magical portal to our sales team on WhatsApp (via <strong>+918812802705</strong>). We'll guide you through the process!
+            </p>
+        </section>
+        
+    </main>
 
-    const whatsappNumber = '918812802705';
+    <footer class="text-white mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center space-y-4">
+            
+            <a href="https://discord.com/users/veynic" target="_blank" rel="noopener noreferrer" class="discord-button inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white shadow-sm hover:ring-2 hover:ring-offset-2 hover:ring-[#5865F2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5865F2]">
+                <i class="fab fa-discord fa-lg mr-3 discord-icon"></i>
+                Contact Developer (veynic)
+            </a>
+            <p class="mt-2">&copy; 2025 Skyward Whispers. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-    function makeCard(d){
-      const el = document.createElement('div'); el.className='card';
-      const flag = document.createElement('div'); flag.className='flag'; flag.textContent = d.flag;
-      const country = document.createElement('div'); country.className='country'; country.textContent = d.country;
-      const code = document.createElement('div'); code.className='code'; code.textContent = d.code;
-      const desc = document.createElement('div'); desc.className='desc'; desc.textContent = 'Dedicated virtual number for WhatsApp verification.';
-      const a = document.createElement('a'); a.className='cta'; a.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`I want a ${d.country} ${d.code} number.`)}`; a.target='_blank'; a.textContent='Acquire Now';
-      el.appendChild(flag); el.appendChild(country); el.appendChild(code); el.appendChild(desc); el.appendChild(a);
-      return el;
-    }
+    <script type="module">
+        // --- NUMBER CARD RENDERING LOGIC ---
 
-    function render(){
-      const container = document.getElementById('number-cards-container');
-      container.innerHTML='';
-      numberData.forEach(n=> container.appendChild(makeCard(n)));
+        const numberData = [
+            { country: 'Japan', code: '+81', flag: '🇯🇵', isPremium: true },
+            { country: 'USA', code: '+1', flag: '🇺🇸' },
+            { country: 'Vietnam', code: '+84', flag: '🇻🇳' },
+            { country: 'Colombia', code: '+57', flag: '🇨🇴' },
+            { country: 'Netherlands', code: '+31', flag: '🇳🇱' },
+            { country: 'Afghanistan', code: '+93', flag: '🇦🇫' },
+            { country: 'Nepal', code: '+977', flag: '🇳🇵' },
+            { country: 'Zambia', code: '+260', flag: '🇿🇲' },
+            { country: 'Egypt', code: '+20', flag: '🇪🇬' },
+            { country: 'Senegal', code: '+221', flag: '🇸🇳' },
+            { country: 'Venezuela', code: '+58', flag: '🇻🇪' },
+            { country: 'Tajikistan', code: '+992', flag: '🇹🇯' },
+            { country: 'Azerbaijan', code: '+994', flag: '🇦🇿' },
+            { country: 'Sri Lanka', code: '+94', flag: '🇱🇰' },
+        ];
 
-      // reveal intro smoothly
-      document.getElementById('intro').classList.add('visible');
-      document.querySelectorAll('.fade-in').forEach(el=>el.classList.add('visible'));
-    }
+        const whatsappNumber = '918812802705';
+        
+        function createCard(data) {
+            const isPremium = data.isPremium;
 
-    document.addEventListener('DOMContentLoaded', render);
-  </script>
+            let cardClasses = 'number-card p-6 rounded-2xl flex flex-col items-center text-center';
+            let buttonClasses = 'w-full py-3 mt-4 text-white font-bold rounded-xl shadow-lg transition-transform duration-200 transform hover:scale-[1.02]';
+            let flagClasses = 'text-6xl mb-4';
+
+            if (isPremium) {
+                cardClasses = 'premium-card p-6 rounded-2xl flex flex-col items-center text-center';
+                buttonClasses = 'w-full py-3 mt-4 bg-gray-900 text-white font-extrabold rounded-xl shadow-xl transition-transform duration-200 transform hover:scale-[1.02] hover:bg-gray-700';
+                flagClasses = 'premium-flag mb-4';
+            } else {
+                buttonClasses += ' bg-blue-600 hover:bg-blue-700';
+            }
+
+            const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me with this magical connection.`);
+            const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
+            
+            return `
+                <div class="${cardClasses}">
+                    ${isPremium ? '<div class="absolute top-2 right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">PREMIUM</div>' : ''}
+                    <div class="${flagClasses}" role="img" aria-label="Flag of ${data.country}">${data.flag}</div>
+                    <h3 class="text-2xl font-extrabold mb-1 ${isPremium ? 'text-gray-900' : 'text-gray-800'}">${data.country}</h3>
+                    <p class="text-4xl font-black mb-4 ${isPremium ? 'text-gray-800' : 'text-blue-600'}">${data.code}</p>
+                    <p class="text-sm ${isPremium ? 'text-gray-800' : 'text-gray-500'} mb-4">
+                        A dedicated virtual number, touched by magic, for your global connections.
+                    </p>
+                    <a href="${waLink}" target="_blank" class="${buttonClasses}">
+                        Acquire Now
+                    </a>
+                </div>
+            `;
+        }
+
+        function renderCards() {
+            const container = document.getElementById('number-cards-container');
+            if (container) {
+                const cardsHtml = numberData.map(createCard).join('');
+                container.innerHTML = cardsHtml;
+            } else {
+                console.error("Number cards container not found.");
+            }
+        }
+        
+        // Function to create and animate magic particles
+        function createMagicParticle(parentEl) {
+            const particle = document.createElement('div');
+            particle.className = 'magic-particles';
+            parentEl.appendChild(particle);
+
+            const size = Math.random() * 8 + 4; // 4-12px
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            const startX = Math.random() * parentEl.offsetWidth;
+            const startY = Math.random() * parentEl.offsetHeight;
+            particle.style.left = `${startX}px`;
+            particle.style.top = `${startY}px`;
+
+            const duration = Math.random() * 3 + 2; // 2-5s
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `-${Math.random() * duration}s`; // Stagger animation start
+
+            // Remove particle after animation ends to prevent accumulation
+            particle.addEventListener('animationend', () => particle.remove());
+        }
+
+        // Add particles to each card
+        function addParticlesToCards() {
+            const cards = document.querySelectorAll('.number-card, .premium-card');
+            cards.forEach(card => {
+                for (let i = 0; i < 5; i++) { // 5 particles per card
+                    createMagicParticle(card);
+                }
+            });
+        }
+
+        // --- INITIALIZATION ---
+        window.onload = () => {
+            renderCards();
+            addParticlesToCards();
+        };
+
+    </script>
 </body>
 </html>
