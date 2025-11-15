@@ -24,8 +24,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Note: If the image URL is not public or reliable, this might break. */
-            background-image: url('https://i.ibb.co/C0VdMv3/elaina-background.jpg'); 
+            background-image: url('https://i.ibb.co/C0VdMv3/elaina-background.jpg'); /* Your Elaina image URL */
             background-size: cover;
             background-position: center bottom; /* Adjust to focus on Elaina */
             background-repeat: no-repeat;
@@ -39,37 +38,10 @@
             to { opacity: 0.2; transform: scale(1); }
         }
 
-        /* --- MODERN HEADER STYLES --- */
-        .modern-header-bg {
-            /* Minimalist, subtle white/light blue for a clean top bar */
-            background-color: rgba(255, 255, 255, 0.95); 
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            backdrop-filter: blur(8px); /* Soft blur for the modern look */
+        .header-bg {
+            background: linear-gradient(to right, #e0f2fe, #d1e9ff); /* Soft blue gradient */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .modern-header-title {
-            /* Clean, thin font for a modern, elegant feel */
-            font-family: 'Inter', sans-serif;
-            font-weight: 300; /* Lighter font weight */
-            font-size: 1.5rem; /* More minimalist size */
-            letter-spacing: 0.15rem; /* Increased spacing */
-            color: #4f46e5; /* A clean, modern indigo/blue */
-            transition: color 0.3s ease;
-        }
-        .modern-header-title:hover {
-            color: #6366f1;
-        }
-        .modern-header-icon {
-            color: #f97316; /* Orange/Gold accent */
-            font-size: 1.25rem;
-            animation: floatAndTwinkle 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes floatAndTwinkle {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-2px) scale(1.05); opacity: 0.9; }
-        }
-        /* --- END MODERN HEADER STYLES --- */
 
         .main-content-bg {
             background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for content readability */
@@ -151,49 +123,79 @@
             color: #e2e8f0;
         }
 
-        /* --- NEW WHATSAPP BUTTON STYLES AND ANIMATION (Replaced Discord) --- */
-        .whatsapp-button {
-            background-color: #25D366; /* WhatsApp Green */
+        /* --- NEW DISCORD BUTTON STYLES AND ANIMATION --- */
+        .discord-button {
+            background-color: #5865F2; /* Discord's primary color */
             transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.5);
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.5);
         }
-        .whatsapp-button:hover {
-            background-color: #128C7E;
+        .discord-button:hover {
+            background-color: #4c57d9;
             transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.7);
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.7);
         }
-        .whatsapp-icon {
-            animation: popAndPulse 2s ease-in-out infinite;
+        .discord-icon {
+            animation: spinAndPulse 2s ease-in-out infinite;
         }
 
-        @keyframes popAndPulse {
+        @keyframes spinAndPulse {
             0%, 100% { 
-                transform: scale(1);
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
             }
             50% { 
-                transform: scale(1.1);
+                transform: rotate(5deg) scale(1.02);
+                opacity: 0.9;
             }
         }
         /* --- END NEW STYLES --- */
+
+        /* --- NEW ELAINA-THEMED HEADER STYLES --- */
+        .elaina-header-title {
+            /* Using Playfair Display for elegance, with a slight tilt */
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; /* Slightly smaller and more elegant */
+            font-weight: 700;
+            /* Ethereal color */
+            color: #6a0dad; /* Deep Purple */
+            text-shadow: 1px 1px 3px rgba(106, 13, 173, 0.3);
+            transition: all 0.5s ease-in-out;
+        }
+        .elaina-header-title:hover {
+            color: #4b0082; /* Indigo/darker purple on hover */
+            transform: scale(1.02);
+        }
+        .elaina-icon {
+            color: #ffd700; /* Gold/yellow for the star */
+            font-size: 1.5rem;
+            /* Animation for the star icon */
+            animation: twinkleStar 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes twinkleStar {
+            from { opacity: 0.8; transform: rotate(0deg) scale(1); }
+            to { opacity: 1; transform: rotate(5deg) scale(1.1); }
+        }
+        /* --- END NEW ELAINA-THEMED HEADER STYLES --- */
 
     </style>
 </head>
 <body class="min-h-screen">
 
-    <header class="modern-header-bg shadow-lg sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+    <header class="header-bg shadow-lg sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
             
             <div class="flex items-center space-x-2 animated-header">
-                <i class="fas fa-magic modern-header-icon"></i>
-                <h1 class="modern-header-title">
-                    SKYWARD WHISPERS
+                <i class="fas fa-hat-wizard elaina-icon"></i>
+                <h1 class="elaina-header-title tracking-tight">
+                    Skyward Whispers
                 </h1>
             </div>
-            <p class="text-sm font-light text-gray-600 hidden sm:block">
-                ~ Global Communication, Magically Simple ~
+            <p class="text-sm font-semibold text-gray-700 hidden sm:block">
+                Journey with seamless global communication
             </p>
         </div>
     </header>
+
     <main class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 main-content-bg mt-8 mb-12">
         <div class="text-center mb-10">
             <h2 class="text-4xl font-extrabold text-gray-900 mb-4 font-playfair-display">
@@ -219,14 +221,14 @@
     <footer class="text-white mt-12 py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center space-y-4">
             
-            <a href="https://wa.me/919707874918" target="_blank" rel="noopener noreferrer" class="whatsapp-button inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white shadow-sm hover:ring-2 hover:ring-offset-2 hover:ring-[#25D366] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#25D366]">
-                <i class="fab fa-whatsapp fa-lg mr-3 whatsapp-icon"></i>
-                Contact Support on WhatsApp
+            <a href="https://discord.com/users/veynic" target="_blank" rel="noopener noreferrer" class="discord-button inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white shadow-sm hover:ring-2 hover:ring-offset-2 hover:ring-[#5865F2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5865F2]">
+                <i class="fab fa-discord fa-lg mr-3 discord-icon"></i>
+                Contact Developer
             </a>
-
             <p class="mt-2">&copy; 2025 Skyward Whispers. All Rights Reserved.</p>
         </div>
     </footer>
+
     <script type="module">
         // --- NUMBER CARD RENDERING LOGIC ---
 
@@ -246,7 +248,7 @@
             { country: 'Azerbaijan', code: '+994', flag: '🇦🇿' },
             { country: 'Sri Lanka', code: '+94', flag: '🇱🇰' },
             { country: 'Myanmar', code: '+95', flag: '🇲🇲' }
-        ]; 
+        ]; // <-- MISSING CLOSING CURLY BRACE ADDED HERE
 
         // Changed to match the number mentioned in the HTML text for consistency
         const whatsappNumber = '919707874918'; 
