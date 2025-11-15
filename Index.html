@@ -3,248 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skyward Whispers - Enchanted Numbers</title>
+    <title>Skyward Whispers - Enchanted Numbers (Desktop Friendly)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@400;700&family=Sacramento&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* BASE STYLES */
+        :root{
+            --card-radius: 1.25rem;
+            --glass-bg: rgba(255,255,255,0.92);
+            --accent-blue: #1e40af;
+        }
+
+        /* Base */
+        html,body{height:100%;}
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f8ff; /* Light, ethereal background */
+            background-color: #f0f8ff;
             position: relative;
             overflow-x: hidden;
-            min-height: 100vh;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding-bottom:4rem;
         }
-        
-        /* Elaina Themed Background */
+
+        /* Bigger, subtler background for desktop */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://i.ibb.co/C0VdMv3/elaina-background.jpg'); 
+            inset: 0;
+            background-image: url('https://i.ibb.co/C0VdMv3/elaina-background.jpg');
             background-size: cover;
-            background-position: center bottom; 
+            background-position: center bottom;
             background-repeat: no-repeat;
-            opacity: 0.2; 
+            opacity: 0.12;
             z-index: -1;
-            animation: fadeInBackground 2s ease-out forwards;
+            filter: saturate(0.95) blur(2px);
         }
 
-        @keyframes fadeInBackground {
-            from { opacity: 0; transform: scale(1.05); }
-            to { opacity: 0.2; transform: scale(1); }
+        header.header-bg {
+            background: linear-gradient(90deg, rgba(224,242,254,0.95) 0%, rgba(209,233,255,0.92) 100%);
+            box-shadow: 0 6px 20px rgba(2,6,23,0.06);
         }
 
-        .header-bg {
-            background: linear-gradient(to right, #e0f2fe, #d1e9ff); 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* MAIN CONTENT AREA ADJUSTMENT */
         .main-content-bg {
-            background-color: rgba(255, 255, 255, 0.9); 
-            border-radius: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(5px);
-            max-width: 1400px; 
+            background: var(--glass-bg);
+            border-radius: 1.25rem;
+            box-shadow: 0 14px 40px rgba(6,8,23,0.06);
+            backdrop-filter: blur(6px) saturate(120%);
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
-            padding: 2rem; 
+            padding: 2rem;
         }
-        
-        /* CARD STYLES */
-        /* Corrected premium card layout for flow */
-        .premium-card {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); 
-            box-shadow: 0 15px 30px rgba(255, 165, 0, 0.4);
-            color: #1a202c; 
-            border: 3px solid #FFD700;
-            transform: scale(1.05); 
-            transition: all 0.3s ease-in-out;
+
+        /* Cards */
+        .number-card, .premium-card{
+            padding: 1.5rem;
+            border-radius: var(--card-radius);
+            transition: transform .28s ease, box-shadow .28s ease;
             position: relative;
-            animation: cardFloat 3s ease-in-out infinite alternate;
-            text-align: center; /* Ensure internal text is centered */
-        }
-        .premium-card:hover {
-            transform: scale(1.08);
-            box-shadow: 0 20px 40px rgba(255, 165, 0, 0.6);
-        }
-        .premium-flag {
-            /* Adjusted size for PC grid layout */
-            font-size: 4rem; 
-            line-height: 1;
+            overflow: hidden;
+            min-height: 220px;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
         }
 
         .number-card {
-            background-color: rgba(255, 255, 255, 0.95); 
-            padding: 1.5rem;
-            border-radius: 1.5rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease-in-out;
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(250,250,252,0.96) 100%);
+            border: 1px solid rgba(15,23,42,0.04);
+            box-shadow: 0 8px 22px rgba(8,10,25,0.04);
         }
-        .number-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        .number-card:hover{transform: translateY(-8px) scale(1.02); box-shadow:0 18px 40px rgba(8,10,25,0.08);}
+
+        .premium-card {
+            background: linear-gradient(135deg,#FFDE59 0%, #FFB347 100%);
+            border: 2px solid rgba(255,215,0,0.9);
+            box-shadow: 0 18px 40px rgba(255,153,32,0.12);
+            color: #0f172a;
         }
 
-        @keyframes cardFloat {
-            0% { transform: translateY(0) scale(1.05); }
-            100% { transform: translateY(-5px) scale(1.05); }
+        .premium-flag{font-size:3.6rem; line-height:1}
+        .flag-large{font-size:3rem}
+
+        .premium-badge{position:absolute; top:12px; right:12px; background:linear-gradient(180deg,#fff6d6,#fff0b2); padding:.4rem .6rem; border-radius:999px; font-weight:700; font-size:.8rem; color:#362b06; box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+
+        /* Grid layout tuned for desktop */
+        #number-cards-container{
+            display:grid;
+            gap:1.25rem;
+            grid-template-columns: repeat(1, minmax(0,1fr));
         }
 
-        /* MAGIC PARTICLES */
-        .magic-particles {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            animation: twinkle 4s ease-in-out infinite alternate;
-            opacity: 0;
-            z-index: 0; 
+        /* Desktop breakpoints */
+        @media (min-width:640px){
+            #number-cards-container{grid-template-columns: repeat(2, minmax(0,1fr));}
+        }
+        @media (min-width:1024px){
+            #number-cards-container{grid-template-columns: repeat(3, minmax(0,1fr));}
+            .main-content-bg{padding:3rem}
+            .flag-large{font-size:3.4rem}
+        }
+        @media (min-width:1280px){
+            #number-cards-container{grid-template-columns: repeat(4, minmax(0,1fr)); gap:1.75rem}
+            .main-content-bg{padding:3.5rem}
+            .premium-flag{font-size:4.25rem}
         }
 
-        @keyframes twinkle {
-            0%, 100% { transform: scale(0.5); opacity: 0; }
-            50% { transform: scale(1.2); opacity: 0.7; }
+        /* Header fonts */
+        .main-title-font{font-family:'Sacramento',cursive; font-size:2.4rem}
+        @media(min-width:1024px){.main-title-font{font-size:3.2rem}}
+
+        /* Particles (optimized) */
+        .magic-particles{
+            position:absolute; border-radius:50%; pointer-events:none; z-index:0; opacity:0; transform:translate(-50%,-50%) scale(.6);
+            background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 65%);
+            will-change: transform, opacity;
         }
 
-        /* HEADER ANIMATION */
-        .animated-header {
-            animation: slideInLeft 1s ease-out forwards;
-        }
+        @keyframes twinkle {0%{opacity:0; transform:translate(-50%,-50%) scale(.6)} 50%{opacity:.85; transform:translate(-50%,-60%) scale(1.08)} 100%{opacity:0; transform:translate(-50%,-70%) scale(.6)}}
 
-        @keyframes slideInLeft {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
+        /* CTA styles */
+        .cta-btn{width:100%; padding:.85rem 1rem; border-radius: .75rem; font-weight:800}
+        .cta-primary{background:var(--accent-blue); color:white}
+        .cta-primary:hover{transform:translateY(-2px)}
+        .cta-dark{background:#0f172a; color:white}
 
-        /* FOOTER STYLES */
-        footer {
-            background-color: rgba(45, 55, 72, 0.9); 
-            backdrop-filter: blur(3px);
-            color: #e2e8f0;
-        }
+        /* Footer */
+        footer{background-color: rgba(12,18,39,0.88); backdrop-filter: blur(4px); color: #e6eefb}
 
-        /* CUSTOM FONT & RESPONSIVE TYPOGRAPHY */
-        .main-title-font {
-            font-family: 'Sacramento', cursive;
-            font-weight: 400; 
-            font-size: 2.5rem; 
-            line-height: 1;
-        }
-        
-        /* PC/Desktop adjustments (min-width: 1024px) */
-        @media (min-width: 1024px) {
-            .main-title-font {
-                font-size: 3.5rem; 
-            }
-            .title-section h2 {
-                font-size: 3.5rem; 
-            }
-            .title-section p {
-                font-size: 1.25rem; 
-            }
-            .main-content-bg {
-                padding: 3rem; 
-                margin-top: 2rem;
-                margin-bottom: 2rem;
-            }
-        }
-        /* Extra large desktop adjustments (min-width: 1280px) */
-        @media (min-width: 1280px) {
-            .main-content-bg {
-                padding: 4rem; 
-            }
-            .grid-container {
-                gap: 2rem; 
-            }
-        }
+        /* Utilities */
+        .muted{color:#475569}
 
-        /* DISCORD STYLES */
-        .discord-button {
-            background-color: #5865F2; 
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.5);
-        }
-        .discord-button:hover {
-            background-color: #4c57d9;
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.7);
-        }
-        .discord-icon {
-            animation: spinAndPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes spinAndPulse {
-            0%, 100% { 
-                transform: rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            50% { 
-                transform: rotate(5deg) scale(1.02);
-                opacity: 0.9;
-            }
-        }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <header class="header-bg shadow-lg sticky top-0 z-10">
+    <header class="header-bg shadow-lg sticky top-0 z-20">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <h1 class="text-blue-800 tracking-tight animated-header main-title-font">
-                Skyward Whispers
-            </h1>
-            <p class="text-sm font-semibold text-gray-700 hidden sm:block">
-                Journey with seamless global communication
-            </p>
+            <h1 class="text-blue-800 tracking-tight animated-header main-title-font">Skyward Whispers</h1>
+            <p class="text-sm font-semibold text-gray-700 hidden sm:block">Journey with seamless global communication</p>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 main-content-bg mt-8 mb-12">
         <div class="text-center mb-10 title-section">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-4 font-playfair-display">
-                Whispers of Connection Across Worlds
-            </h2>
-            <p class="text-xl text-gray-700 max-w-3xl mx-auto">
-                Discover virtual numbers, like spells, for instant WhatsApp verification and global communication.
-            </p>
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4 font-playfair-display">Whispers of Connection Across Worlds</h2>
+            <p class="text-lg muted max-w-3xl mx-auto">Discover virtual numbers — instant WhatsApp verification and global communication.</p>
         </div>
 
-        <div id="number-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 grid-container">
-            </div>
+        <div id="number-cards-container" class="grid-container">
+        </div>
 
         <section class="mt-16 bg-blue-50 p-8 rounded-xl shadow-inner text-center">
             <h3 class="text-2xl font-bold text-gray-800 mb-3">How to Acquire Your Number?</h3>
-            <p class="text-lg text-gray-700">
-                Clicking 'Acquire Now' will open a magical portal to our sales team on WhatsApp (via <strong>+918812802705</strong>). We'll guide you through the process!
-            </p>
+            <p class="text-lg muted">Clicking 'Acquire Now' opens a magical portal to our sales team on WhatsApp (<strong>+91 88128 02705</strong>). We'll guide you through!</p>
         </section>
-        
     </main>
 
-    <footer class="text-white mt-12 py-6">
+    <footer class="text-white mt-6 py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center space-y-4">
-            
-            <a href="https://discord.com/users/veynic" target="_blank" rel="noopener noreferrer" class="discord-button inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white shadow-sm hover:ring-2 hover:ring-offset-2 hover:ring-[#5865F2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5865F2]">
-                <i class="fab fa-discord fa-lg mr-3 discord-icon"></i>
+            <a href="https://discord.com/users/veynic" target="_blank" rel="noopener noreferrer" class="discord-button inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white shadow-sm hover:ring-2 hover:ring-offset-2 hover:ring-[#5865F2] focus:outline-none">
+                <i class="fab fa-discord fa-lg mr-3"></i>
                 Contact Developer (veynic)
             </a>
-
             <p class="mt-2">&copy; 2025 Skyward Whispers. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script type="module">
-        // --- NUMBER CARD RENDERING LOGIC ---
-
+        // Data
         const numberData = [
             { country: 'Japan', code: '+81', flag: '🇯🇵', isPremium: true },
             { country: 'USA', code: '+1', flag: '🇺🇸' },
@@ -263,91 +193,76 @@
         ];
 
         const whatsappNumber = '918812802705';
-        
-        function createCard(data) {
-            const isPremium = data.isPremium;
 
-            // Updated base flag size to 6xl for all non-premium cards
-            let cardClasses = 'number-card p-6 rounded-2xl flex flex-col items-center text-center';
-            let buttonClasses = 'w-full py-3 mt-4 text-white font-bold rounded-xl shadow-lg transition-transform duration-200 transform hover:scale-[1.02]';
-            let flagClasses = 'text-6xl mb-4';
+        function createCard(data){
+            const isPremium = !!data.isPremium;
+            const flagClass = isPremium ? 'premium-flag' : 'flag-large';
+            const cardEl = document.createElement('div');
+            cardEl.className = isPremium ? 'premium-card' : 'number-card';
 
-            if (isPremium) {
-                // Removed redundant flag classes here, relying on custom CSS
-                cardClasses = 'premium-card p-6 rounded-2xl flex flex-col items-center text-center';
-                buttonClasses = 'w-full py-3 mt-4 bg-gray-900 text-white font-extrabold rounded-xl shadow-xl transition-transform duration-200 transform hover:scale-[1.02] hover:bg-gray-700';
-                flagClasses = 'premium-flag mb-4';
-            } else {
-                buttonClasses += ' bg-blue-600 hover:bg-blue-700';
+            if(isPremium){
+                const badge = document.createElement('div'); badge.className='premium-badge'; badge.textContent='PREMIUM';
+                cardEl.appendChild(badge);
             }
 
-            const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me with this magical connection.`);
-            const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
-            
-            return `
-                <div class="${cardClasses}">
-                    ${isPremium ? '<div class="absolute top-2 right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">PREMIUM</div>' : ''}
-                    <div class="${flagClasses}" role="img" aria-label="Flag of ${data.country}">${data.flag}</div>
-                    <h3 class="text-2xl font-extrabold mb-1 ${isPremium ? 'text-gray-900' : 'text-gray-800'}">${data.country}</h3>
-                    <p class="text-4xl font-black mb-4 ${isPremium ? 'text-gray-800' : 'text-blue-600'}">${data.code}</p>
-                    <p class="text-sm ${isPremium ? 'text-gray-800' : 'text-gray-500'} mb-4">
-                        A dedicated virtual number, touched by magic, for your global connections.
-                    </p>
-                    <a href="${waLink}" target="_blank" class="${buttonClasses}">
-                        Acquire Now
-                    </a>
-                </div>
-            `;
+            const flag = document.createElement('div'); flag.className = flagClass + ' mb-3'; flag.setAttribute('role','img'); flag.setAttribute('aria-label', `Flag of ${data.country}`); flag.textContent = data.flag;
+            const h3 = document.createElement('h3'); h3.className='text-2xl font-extrabold mb-1'; h3.textContent = data.country;
+            const pCode = document.createElement('p'); pCode.className='text-4xl font-black mb-3'; pCode.textContent = data.code;
+            const pDesc = document.createElement('p'); pDesc.className='text-sm muted mb-4'; pDesc.textContent = 'A dedicated virtual number, touched by magic, for your global connections.';
+
+            const message = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me.`);
+            const waLink = `https://wa.me/${whatsappNumber}?text=${message}`;
+            const a = document.createElement('a'); a.href = waLink; a.target='_blank'; a.rel='noopener noreferrer';
+            a.className = isPremium ? 'cta-btn cta-dark' : 'cta-btn cta-primary';
+            a.textContent = 'Acquire Now';
+
+            cardEl.appendChild(flag); cardEl.appendChild(h3); cardEl.appendChild(pCode); cardEl.appendChild(pDesc); cardEl.appendChild(a);
+
+            return cardEl;
         }
 
-        function renderCards() {
+        function renderCards(){
             const container = document.getElementById('number-cards-container');
-            if (container) {
-                const cardsHtml = numberData.map(createCard).join('');
-                container.innerHTML = cardsHtml;
-            } else {
-                console.error("Number cards container not found.");
-            }
-        }
-        
-        // Function to create and animate magic particles
-        function createMagicParticle(parentEl) {
-            const particle = document.createElement('div');
-            particle.className = 'magic-particles';
-            parentEl.appendChild(particle);
-
-            const size = Math.random() * 8 + 4; // 4-12px
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            
-            const startX = Math.random() * parentEl.offsetWidth;
-            const startY = Math.random() * parentEl.offsetHeight;
-            particle.style.left = `${startX}px`;
-            particle.style.top = `${startY}px`;
-
-            const duration = Math.random() * 3 + 2; // 2-5s
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `-${Math.random() * duration}s`; // Stagger animation start
-
-            // Remove particle after animation ends to prevent accumulation
-            particle.addEventListener('animationend', () => particle.remove());
+            container.innerHTML = '';
+            numberData.forEach(d=> container.appendChild(createCard(d)));
         }
 
-        // Add particles to each card
-        function addParticlesToCards() {
+        // Particle system (lightweight): spawns a few transient particles per card on interval
+        function spawnParticles() {
             const cards = document.querySelectorAll('.number-card, .premium-card');
             cards.forEach(card => {
-                for (let i = 0; i < 5; i++) { // 5 particles per card
-                    createMagicParticle(card);
+                // fewer particles on desktop for performance
+                const max = window.innerWidth >= 1280 ? 3 : 5;
+                for(let i=0;i<max;i++){
+                    const p = document.createElement('div');
+                    p.className = 'magic-particles';
+                    const size = Math.random()*10 + 4; p.style.width = `${size}px`; p.style.height = `${size}px`;
+                    // random position within card bounds
+                    const rect = card.getBoundingClientRect();
+                    const left = Math.random()*rect.width; const top = Math.random()*rect.height;
+                    p.style.left = `${left}px`; p.style.top = `${top}px`;
+                    p.style.animation = `twinkle ${2 + Math.random()*2}s ease-in-out forwards`;
+                    card.appendChild(p);
+                    // remove after animation
+                    setTimeout(()=>{ p.remove(); }, 3000 + Math.random()*2000);
                 }
             });
         }
 
-        // --- INITIALIZATION ---
-        window.onload = () => {
+        // Reduce particle spawn when page is hidden
+        let particleInterval;
+        function startParticles(){ particleInterval = setInterval(spawnParticles, 1200); }
+        function stopParticles(){ clearInterval(particleInterval); }
+        document.addEventListener('visibilitychange', ()=>{ document.hidden ? stopParticles() : startParticles(); });
+
+        // Responsive tweaks: ensure appropriate spacing if window resized
+        window.addEventListener('resize', ()=>{ /* could recalc particle density or layout if needed */ });
+
+        // Init
+        window.addEventListener('DOMContentLoaded', ()=>{
             renderCards();
-            addParticlesToCards();
-        };
+            startParticles();
+        });
 
     </script>
 </body>
