@@ -10,13 +10,12 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f8ff; /* Light, ethereal background */
+            background-color: #f0f8ff; 
             position: relative;
             overflow-x: hidden;
-            min-height: 100vh; /* Ensure full height for background */
+            min-height: 100vh;
         }
         
-        /* Elaina Themed Background */
         body::before {
             content: '';
             position: fixed;
@@ -24,11 +23,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://i.ibb.co/C0VdMv3/elaina-background.jpg'); /* Your Elaina image URL */
+            background-image: url('https://i.ibb.co/C0VdMv3/elaina-background.jpg'); 
             background-size: cover;
-            background-position: center bottom; /* Adjust to focus on Elaina */
+            background-position: center bottom; 
             background-repeat: no-repeat;
-            opacity: 0.2; /* Subtle opacity */
+            opacity: 0.2; 
             z-index: -1;
             animation: fadeInBackground 2s ease-out forwards;
         }
@@ -39,18 +38,17 @@
         }
 
         .header-bg {
-            background: linear-gradient(to right, #e0f2fe, #d1e9ff); /* Soft blue gradient */
+            background: linear-gradient(to right, #e0f2fe, #d1e9ff);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .main-content-bg {
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for content readability */
+            background-color: rgba(255, 255, 255, 0.9); 
             border-radius: 1.5rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(5px); /* Soft blur effect */
+            backdrop-filter: blur(5px); 
         }
 
-        /* Custom styles for the Premium card (Japan) */
         .premium-card {
             background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); /* Gold/Orange gradient */
             box-shadow: 0 15px 30px rgba(255, 165, 0, 0.4);
@@ -247,10 +245,10 @@
             { country: 'Tajikistan', code: '+992', flag: '🇹🇯' },
             { country: 'Azerbaijan', code: '+994', flag: '🇦🇿' },
             { country: 'Sri Lanka', code: '+94', flag: '🇱🇰' },
-            { country: 'Myanmar', code: '+95', flag: '🇲🇲' }
-        ]; // <-- MISSING CLOSING CURLY BRACE ADDED HERE
-
-        // Changed to match the number mentioned in the HTML text for consistency
+            { country: 'Myanmar', code: '+95', flag: '🇲🇲' },
+            { country: 'Nigeria', code: '+234', flag: '🇳🇬' },
+            { country: 'Israel', code: '+972', flag: '🇮🇱' }
+        ]; 
         const whatsappNumber = '919707874918'; 
         
         function createCard(data) {
