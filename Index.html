@@ -167,7 +167,7 @@
 
         /* NEW PRICE STYLES */
         .price-badge {
-            background-color: #10b981; /* Emerald Green */
+            background-color: #10b981;
             color: white;
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
@@ -179,7 +179,7 @@
             transition: background-color 0.3s;
         }
         .premium-card .price-badge {
-            background-color: #9c4221; /* Darker/Earthy tone for premium */
+            background-color: #9c4221;
             color: white;
         }
     </style>
@@ -280,7 +280,7 @@
                     <div class="${flagClasses}" role="img" aria-label="Flag of ${data.country}">${data.flag}</div>
                     <h3 class="text-2xl font-extrabold mb-1 ${isPremium ? 'text-gray-900' : 'text-gray-800'}">${data.country}</h3>
                     <p class="text-4xl font-black mb-2 ${isPremium ? 'text-gray-800' : 'text-blue-600'}">${data.code}</p>
-                    <div class="price-badge">$${data.price}</div>
+                    <div class="price-badge">₹${data.price}</div>
                     <p class="text-sm ${isPremium ? 'text-gray-800' : 'text-gray-500'} mb-4">
                         A dedicated virtual number, touched by magic, for your global connections.
                     </p>
