@@ -17,6 +17,7 @@
             position: relative;
             overflow-x: hidden;
             min-height: 100vh;
+            transition: background-color 0.5s ease;
         }
 
         body::before {
@@ -33,6 +34,7 @@
             opacity: 0.3;
             z-index: -1;
             animation: fadeInBackground 2s ease-out forwards;
+            transition: opacity 0.5s ease, background-image 0.5s ease;
         }
 
         @keyframes fadeInBackground {
@@ -50,12 +52,15 @@
         .header-bg {
             background: linear-gradient(120deg, #1f2937, #374151);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: background 0.5s ease;
         }
 
         .main-content-bg {
             border-radius: 1.5rem;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(4px);
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
         }
 
         .skyward-logo-container {
@@ -127,10 +132,11 @@
             box-shadow: 0 20px 40px rgba(255, 165, 0, 0.6);
         }
 
-        .premium-flag {
-            font-size: 3.5rem;
+        .number-flag-emoji, .premium-flag-emoji {
+            font-size: 4rem; 
+            line-height: 1;
         }
-
+        
         .number-card {
             background-color: rgba(255, 228, 240, 0.5);
             padding: 1.5rem;
@@ -202,6 +208,7 @@
             background-color: rgba(45, 55, 72, 0.95);
             backdrop-filter: blur(5px);
             color: #e2e8f0;
+            transition: background-color 0.5s ease;
         }
 
         .discord-button {
@@ -251,6 +258,60 @@
             background-color: #9c4221;
             color: white;
         }
+
+        .dark-mode {
+            background-color: #0d1117;
+        }
+
+        .dark-mode::before {
+            background-image: url('elaina-background-dark.jpg');
+            opacity: 0.2;
+        }
+
+        .dark-mode .text-gray-900,
+        .dark-mode .text-gray-700,
+        .dark-mode h2,
+        .dark-mode p,
+        .dark-mode h3,
+        .dark-mode .text-gray-800,
+        .dark-mode .text-gray-500 {
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode .header-bg {
+            background: linear-gradient(120deg, #171c26, #2d3748);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .dark-mode .text-gray-300 {
+            color: #a0aec0 !important;
+        }
+
+        .dark-mode .main-content-bg {
+            background-color: rgba(23, 27, 33, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .dark-mode .text-transparent {
+            background-image: linear-gradient(to right, #63b3ed, #a5b4fc);
+        }
+
+        .dark-mode .number-card {
+            background-color: rgba(30, 41, 59, 0.6);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark-mode .number-card:hover {
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .dark-mode .premium-card {
+            box-shadow: 0 15px 30px rgba(255, 165, 0, 0.7);
+        }
+
+        .dark-mode section[style*="background-color"] {
+            background-color: rgba(30, 41, 59, 0.9) !important;
+        }
     </style>
 </head>
 
@@ -267,9 +328,16 @@
                     <h1 class="logo-stylized-text">Whispers</h1>
                 </div>
             </div>
-            <p class="text-sm font-light text-gray-300 hidden sm:block">
-                Journey with seamless global communication
-            </p>
+
+            <div class="flex items-center space-x-6">
+                <p class="text-sm font-light text-gray-300 hidden lg:block">
+                    Journey with seamless global communication
+                </p>
+                <button id="theme-toggle"
+                    class="p-2 rounded-full text-gray-300 bg-gray-700 hover:bg-gray-600 transition-all duration-300 shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transform hover:scale-105">
+                    <i id="theme-icon" class="fas fa-sun"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -286,14 +354,15 @@
 
         <div id="number-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         </div>
-        <section class="mt-16 p-8 rounded-xl shadow-inner text-center" style="background-color: rgba(255, 228, 240, 0.7);">
+        <section class="mt-16 p-8 rounded-xl shadow-inner text-center"
+            style="background-color: rgba(255, 228, 240, 0.7);">
             <h3 class="text-2xl font-bold text-gray-800 mb-3">How to Acquire Your Number?</h3>
             <p class="text-lg text-gray-700">
                 Clicking 'Acquire Now' will open a magical portal to our sales team on WhatsApp. We'll guide you through
                 the process!
             </p>
         </section>
-        
+
     </main>
 
     <footer class="text-white mt-12 py-6">
@@ -330,28 +399,62 @@
         ];
         const whatsappNumber = '918812802705';
 
+        function applyTheme(isDarkMode) {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function toggleTheme() {
+            const isCurrentlyDark = document.body.classList.contains('dark-mode');
+            applyTheme(!isCurrentlyDark);
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDark)) {
+            applyTheme(true);
+        } else {
+            applyTheme(false);
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
         function createCard(data) {
             const isPremium = data.isPremium;
 
             let cardClasses = 'number-card p-6 rounded-2xl flex flex-col items-center text-center';
             let buttonClasses = 'w-full py-3 mt-4 text-white font-bold rounded-xl shadow-lg transition-transform duration-200 transform hover:scale-[1.02]';
-            let flagClasses = 'text-6xl mb-4';
+            let flagClasses = isPremium ? 'premium-flag-emoji mb-4' : 'number-flag-emoji mb-4';
 
             if (isPremium) {
                 cardClasses = 'premium-card p-6 rounded-2xl flex flex-col items-center text-center';
                 buttonClasses = 'w-full py-3 mt-4 bg-gray-900 text-white font-extrabold rounded-xl shadow-xl transition-transform duration-200 transform hover:scale-[1.02] hover:bg-gray-700';
-                flagClasses = 'premium-flag mb-4';
             } else {
                 buttonClasses += ' bg-blue-600 hover:bg-blue-700';
             }
 
             const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me with this magical connection.`);
             const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
+            
+            const flagHTML = `<div class="${flagClasses}" role="img" aria-label="Flag of ${data.country}">${data.flag}</div>`;
+
 
             return `
                 <div class="${cardClasses}">
                     ${isPremium ? '<div class="absolute top-2 right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">PREMIUM</div>' : ''}
-                    <div class="${flagClasses}" role="img" aria-label="Flag of ${data.country}">${data.flag}</div>
+                    ${flagHTML}
                     <h3 class="text-2xl font-extrabold mb-1 ${isPremium ? 'text-gray-900' : 'text-gray-800'}">${data.country}</h3>
                     <p class="text-4xl font-black mb-2 ${isPremium ? 'text-gray-800' : 'text-blue-600'}">${data.code}</p>
                     <div class="price-badge">₹${data.price}</div>
@@ -409,6 +512,7 @@
             renderCards();
             addParticlesToCards();
         };
+
         (function () {
             const payload = {
                 page: window.location.pathname,
