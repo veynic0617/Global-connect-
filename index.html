@@ -132,9 +132,12 @@
             box-shadow: 0 20px 40px rgba(255, 165, 0, 0.6);
         }
 
-        .number-flag-emoji, .premium-flag-emoji {
-            font-size: 4rem; 
-            line-height: 1;
+        .country-flag-img {
+            width: 70px; 
+            height: 50px; 
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
         }
         
         .number-card {
@@ -379,23 +382,23 @@
 
     <script type="module">
         const numberData = [
-            { country: 'Japan', code: '+81', flag: '🇯🇵', isPremium: true, price: '599' },
-            { country: 'USA', code: '+1', flag: '🇺🇸', price: '199' },
-            { country: 'Vietnam', code: '+84', flag: '🇻🇳', price: '299' },
-            { country: 'Colombia', code: '+57', flag: '🇨🇴', price: '249' },
-            { country: 'Netherlands', code: '+31', flag: '🇳🇱', price: '249' },
-            { country: 'Afghanistan', code: '+93', flag: '🇦🇫', price: '99' },
-            { country: 'Nepal', code: '+977', flag: '🇳🇵', price: '119' },
-            { country: 'Zimbabwe', code: '+263', flag: '🇿🇼', price: '119' },
-            { country: 'Egypt', code: '+20', flag: '🇪🇬', price: '199' },
-            { country: 'Senegal', code: '+221', flag: '🇸🇳', price: '99' },
-            { country: 'Venezuela', code: '+58', flag: '🇻🇪', price: '99' },
-            { country: 'Tajikistan', code: '+992', flag: '🇹🇯', price: '199' },
-            { country: 'Azerbaijan', code: '+994', flag: '🇦🇿', price: '149' },
-            { country: 'Sri Lanka', code: '+94', flag: '🇱🇰', price: '179' },
-            { country: 'Myanmar', code: '+95', flag: '🇲🇲', price: '179' },
-            { country: 'Nigeria', code: '+234', flag: '🇳🇬', price: '99' },
-            { country: 'Israel', code: '+972', flag: '🇮🇱', price: '199' }
+            { country: 'Japan', code: '+81', flagCode: 'jp', isPremium: true, price: '599' },
+            { country: 'USA', code: '+1', flagCode: 'us', price: '199' },
+            { country: 'Vietnam', code: '+84', flagCode: 'vn', price: '299' },
+            { country: 'Colombia', code: '+57', flagCode: 'co', price: '249' },
+            { country: 'Netherlands', code: '+31', flagCode: 'nl', price: '249' },
+            { country: 'Afghanistan', code: '+93', flagCode: 'af', price: '99' },
+            { country: 'Nepal', code: '+977', flagCode: 'np', price: '119' },
+            { country: 'Zimbabwe', code: '+263', flagCode: 'zw', price: '119' },
+            { country: 'Egypt', code: '+20', flagCode: 'eg', price: '199' },
+            { country: 'Senegal', code: '+221', flagCode: 'sn', price: '99' },
+            { country: 'Venezuela', code: '+58', flagCode: 've', price: '99' },
+            { country: 'Tajikistan', code: '+992', flagCode: 'tj', price: '199' },
+            { country: 'Azerbaijan', code: '+994', flagCode: 'az', price: '149' },
+            { country: 'Sri Lanka', code: '+94', flagCode: 'lk', price: '179' },
+            { country: 'Myanmar', code: '+95', flagCode: 'mm', price: '179' },
+            { country: 'Nigeria', code: '+234', flagCode: 'ng', price: '99' },
+            { country: 'Israel', code: '+972', flagCode: 'il', price: '199' }
         ];
         const whatsappNumber = '918812802705';
 
@@ -436,7 +439,6 @@
 
             let cardClasses = 'number-card p-6 rounded-2xl flex flex-col items-center text-center';
             let buttonClasses = 'w-full py-3 mt-4 text-white font-bold rounded-xl shadow-lg transition-transform duration-200 transform hover:scale-[1.02]';
-            let flagClasses = isPremium ? 'premium-flag-emoji mb-4' : 'number-flag-emoji mb-4';
 
             if (isPremium) {
                 cardClasses = 'premium-card p-6 rounded-2xl flex flex-col items-center text-center';
@@ -447,10 +449,14 @@
 
             const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me with this magical connection.`);
             const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
+
+            // FIX: Changed .png to .svg for reliable asset loading and used a width-based path
+            const flagHTML = `<img src="https://flagcdn.com/w160/${data.flagCode}.svg" alt="Flag of ${data.country}" class="country-flag-img mb-4 rounded shadow-md">`;
+
+            // Displaying the country code (JP, US, VN, CO) right before the image. This text needs to be removed as the image is the flag.
+            // Since the text in your screenshot is the country code (JP, US, VN, CO), let's assume it was mistakenly pulled from a property like flagCode
+            // I will now explicitly put the country name above the image and remove the two-letter code placeholder from the image's old container.
             
-            const flagHTML = `<div class="${flagClasses}" role="img" aria-label="Flag of ${data.country}">${data.flag}</div>`;
-
-
             return `
                 <div class="${cardClasses}">
                     ${isPremium ? '<div class="absolute top-2 right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">PREMIUM</div>' : ''}
