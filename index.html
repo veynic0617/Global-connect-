@@ -7,7 +7,7 @@
     <title>Skyward Whispers - Enchanted Numbers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@400;700&family=Sacramento&family=Poppins:wght@300;600;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght=400;700&family=Sacramento&family=Poppins:wght=300;600;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -31,7 +31,7 @@
             background-size: cover;
             background-position: center bottom;
             background-repeat: no-repeat;
-            opacity: 0.3;
+            opacity: 0.5;
             z-index: -1;
             animation: fadeInBackground 2s ease-out forwards;
             transition: opacity 0.5s ease, background-image 0.5s ease;
@@ -44,22 +44,23 @@
             }
 
             to {
-                opacity: 0.2;
+                opacity: 0.5;
                 transform: scale(1);
             }
         }
 
         .header-bg {
-            background: linear-gradient(120deg, #1f2937, #374151);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(120deg, rgba(31, 41, 55, 0.1), rgba(55, 65, 81, 0.1));
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
             transition: background 0.5s ease;
         }
 
         .main-content-bg {
             border-radius: 1.5rem;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(4px);
-            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            background-color: rgba(200, 180, 200, 0.2);
             transition: background-color 0.5s ease, box-shadow 0.5s ease;
         }
 
@@ -116,18 +117,23 @@
             }
         }
 
+        .communication-text {
+            color: #fff;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+        }
+
         .premium-card {
             background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            box-shadow: 0 15px 30px rgba(255, 165, 0, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
             color: #1a202c;
             border: 3px solid #FFD700;
-            transform: scale(1.05);
             position: relative;
-            animation: cardFloat 3s ease-in-out infinite alternate;
+            transition: all 0.4s ease-in-out;
+            animation: floatBounce 4s ease-in-out infinite alternate;
         }
 
         .premium-card:hover {
-            transform: scale(1.08);
+            transform: translateY(-8px) scale(1.03);
             box-shadow: 0 20px 40px rgba(255, 165, 0, 0.6);
         }
 
@@ -140,27 +146,51 @@
         }
 
         .number-card {
-            background-color: rgba(255, 228, 240, 0.5);
+            background-color: rgba(200, 180, 200, 0.2);
             padding: 1.5rem;
             border-radius: 1.5rem;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease-in-out;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(6px);
+            transition: all 0.4s ease-in-out;
+            animation: floatBounce 4s ease-in-out infinite alternate;
+            border: 2px solid transparent; /* Base transparent border */
+        }
+
+        .number-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 1.5rem;
+            background: radial-gradient(circle at center, #87CEEB 0%, rgba(255,255,255,0) 70%, #93c5fd 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .number-card:hover::before {
+            opacity: 1;
         }
 
         .number-card:hover {
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+            border-color: transparent; /* Ensure no hard border on hover */
         }
 
-        @keyframes cardFloat {
+        @keyframes floatBounce {
             0% {
-                transform: translateY(0) scale(1.05);
+                transform: translateY(0);
             }
-
+            50% {
+                transform: translateY(-5px);
+            }
             100% {
-                transform: translateY(-5px) scale(1.05);
+                transform: translateY(0);
             }
         }
 
@@ -177,7 +207,6 @@
         }
 
         @keyframes twinkle {
-
             0%,
             100% {
                 transform: scale(0.5);
@@ -207,10 +236,15 @@
         }
 
         footer {
-            background-color: rgba(45, 55, 72, 0.95);
+            background-color: rgba(45, 55, 72, 0.1);
             backdrop-filter: blur(5px);
             color: #e2e8f0;
             transition: background-color 0.5s ease;
+        }
+        
+        section[style*="background-color"] {
+            background-color: rgba(200, 180, 200, 0.2) !important;
+            backdrop-filter: blur(5px);
         }
 
         .discord-button {
@@ -230,7 +264,6 @@
         }
 
         @keyframes spinAndPulse {
-
             0%,
             100% {
                 transform: rotate(0deg) scale(1);
@@ -280,8 +313,23 @@
             color: #e2e8f0 !important;
         }
 
+        body:not(.dark-mode) .text-gray-700,
+        body:not(.dark-mode) .text-gray-800,
+        body:not(.dark-mode) .text-gray-500,
+        body:not(.dark-mode) .number-card h3 {
+            color: #1f2937 !important;
+        }
+        
+        body:not(.dark-mode) .number-card p {
+            color: #4b5563 !important;
+        }
+        
+        body:not(.dark-mode) .number-card .text-blue-600 {
+            color: #1e40af !important;
+        }
+
         .dark-mode .header-bg {
-            background: linear-gradient(120deg, #171c26, #2d3748);
+            background: linear-gradient(120deg, rgba(23, 28, 38, 0.1), rgba(45, 55, 72, 0.1));
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
@@ -290,7 +338,7 @@
         }
 
         .dark-mode .main-content-bg {
-            background-color: rgba(23, 27, 33, 0.8);
+            background-color: rgba(23, 27, 33, 0.2);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
@@ -299,7 +347,7 @@
         }
 
         .dark-mode .number-card {
-            background-color: rgba(30, 41, 59, 0.6);
+            background-color: rgba(30, 41, 59, 0.2);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
@@ -308,11 +356,17 @@
         }
 
         .dark-mode .premium-card {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
             box-shadow: 0 15px 30px rgba(255, 165, 0, 0.7);
         }
 
         .dark-mode section[style*="background-color"] {
-            background-color: rgba(30, 41, 59, 0.9) !important;
+            background-color: rgba(30, 41, 59, 0.2) !important;
+        }
+
+        .dark-mode .communication-text {
+            color: #93c5fd; /* Light blue for dark mode */
+            text-shadow: 0 0 5px rgba(147, 197, 253, 0.7);
         }
     </style>
 </head>
@@ -332,7 +386,7 @@
             </div>
 
             <div class="flex items-center space-x-6">
-                <p class="text-sm font-light text-gray-300 hidden lg:block">
+                <p class="text-sm font-light communication-text hidden lg:block">
                     Journey with seamless global communication
                 </p>
                 <button id="theme-toggle"
@@ -357,7 +411,7 @@
         <div id="number-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         </div>
         <section class="mt-16 p-8 rounded-xl shadow-inner text-center"
-            style="background-color: rgba(255, 228, 240, 0.7);">
+            style="background-color: rgba(200, 180, 200, 0.2);">
             <h3 class="text-2xl font-bold text-gray-800 mb-3">How to Acquire Your Number?</h3>
             <p class="text-lg text-gray-700">
                 Clicking 'Acquire Now' will open a magical portal to our sales team on WhatsApp. We'll guide you through
@@ -404,15 +458,25 @@
         function applyTheme(isDarkMode) {
             const body = document.body;
             const icon = document.getElementById('theme-icon');
+            const commText = document.querySelector('.communication-text');
+
             if (isDarkMode) {
                 body.classList.add('dark-mode');
                 icon.classList.remove('fa-sun');
                 icon.classList.add('fa-moon');
+                if (commText) {
+                    commText.classList.remove('text-white', 'text-shadow');
+                    commText.classList.add('text-blue-200');
+                }
                 localStorage.setItem('theme', 'dark');
             } else {
                 body.classList.remove('dark-mode');
                 icon.classList.remove('fa-moon');
                 icon.classList.add('fa-sun');
+                if (commText) {
+                    commText.classList.remove('text-blue-200');
+                    commText.classList.add('text-white', 'text-shadow');
+                }
                 localStorage.setItem('theme', 'light');
             }
         }
@@ -449,7 +513,6 @@
             const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me with this magical connection.`);
             const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
 
-            // FINAL FIX: Using GitHub CDN link for maximum compatibility and reliability.
             const flagHTML = `<img src="https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/${data.flagCode}.svg" alt="Flag of ${data.country}" class="country-flag-img mb-4 rounded shadow-md">`;
 
             return `
@@ -503,6 +566,9 @@
         function addParticlesToCards() {
             const cards = document.querySelectorAll('.number-card, .premium-card');
             cards.forEach(card => {
+                if (window.getComputedStyle(card).position !== 'relative' && window.getComputedStyle(card).position !== 'absolute') {
+                    card.style.position = 'relative';
+                }
                 for (let i = 0; i < 5; i++) {
                     createMagicParticle(card);
                 }
@@ -514,22 +580,11 @@
             addParticlesToCards();
         };
 
-        (function () {
-            const payload = {
-                page: window.location.pathname,
-                clientTime: new Date().toISOString()
-            };
-
-            fetch('/api/logger', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            }).catch((err) => {
-                console.error('Logging visit failed:', err);
-            });
-        })();
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', renderCards);
+        } else {
+            renderCards();
+        }
     </script>
 </body>
 
