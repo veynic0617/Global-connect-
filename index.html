@@ -122,7 +122,6 @@
             color: #1a202c;
             border: 3px solid #FFD700;
             transform: scale(1.05);
-            transition: all 0.3s ease-in-out;
             position: relative;
             animation: cardFloat 3s ease-in-out infinite alternate;
         }
@@ -133,13 +132,13 @@
         }
 
         .country-flag-img {
-            width: 70px; 
-            height: 50px; 
+            width: 70px;
+            height: 50px;
             border: 1px solid rgba(0, 0, 0, 0.1);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             object-fit: cover;
         }
-        
+
         .number-card {
             background-color: rgba(255, 228, 240, 0.5);
             padding: 1.5rem;
@@ -450,13 +449,9 @@
             const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me with this magical connection.`);
             const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
 
-            // FIX: Changed .png to .svg for reliable asset loading and used a width-based path
-            const flagHTML = `<img src="https://flagcdn.com/w160/${data.flagCode}.svg" alt="Flag of ${data.country}" class="country-flag-img mb-4 rounded shadow-md">`;
+            // FINAL FIX: Using GitHub CDN link for maximum compatibility and reliability.
+            const flagHTML = `<img src="https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/${data.flagCode}.svg" alt="Flag of ${data.country}" class="country-flag-img mb-4 rounded shadow-md">`;
 
-            // Displaying the country code (JP, US, VN, CO) right before the image. This text needs to be removed as the image is the flag.
-            // Since the text in your screenshot is the country code (JP, US, VN, CO), let's assume it was mistakenly pulled from a property like flagCode
-            // I will now explicitly put the country name above the image and remove the two-letter code placeholder from the image's old container.
-            
             return `
                 <div class="${cardClasses}">
                     ${isPremium ? '<div class="absolute top-2 right-2 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">PREMIUM</div>' : ''}
