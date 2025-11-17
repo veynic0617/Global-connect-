@@ -137,12 +137,17 @@
             box-shadow: 0 20px 40px rgba(255, 165, 0, 0.6);
         }
 
-        .country-flag-img {
-            width: 70px;
-            height: 50px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            object-fit: cover;
+        .number-card-flag-emoji {
+            font-size: 3.5rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s ease;
+        }
+
+        .number-card:hover .number-card-flag-emoji,
+        .premium-card:hover .number-card-flag-emoji {
+            transform: scale(1.1);
         }
 
         .number-card {
@@ -435,24 +440,24 @@
 
     <script type="module">
         const numberData = [
-            { country: 'Japan', code: '+81', flagCode: 'jp', isPremium: true, price: '599' },
-            { country: 'USA', code: '+1', flagCode: 'us', price: '199' },
-            { country: 'Vietnam', code: '+84', flagCode: 'vn', price: '299' },
-            { country: 'Colombia', code: '+57', flagCode: 'co', price: '249' },
-            { country: 'Netherlands', code: '+31', flagCode: 'nl', price: '249' },
-            { country: 'Afghanistan', code: '+93', flagCode: 'af', price: '99' },
-            { country: 'Nepal', code: '+977', flagCode: 'np', price: '119' },
-            { country: 'Zimbabwe', code: '+263', flagCode: 'zw', price: '119' },
-            { country: 'Egypt', code: '+20', flagCode: 'eg', price: '199' },
-            { country: 'Senegal', code: '+221', flagCode: 'sn', price: '99' },
-            { country: 'Venezuela', code: '+58', flagCode: 've', price: '99' },
-            { country: 'Tajikistan', code: '+992', flagCode: 'tj', price: '199' },
-            { country: 'Azerbaijan', code: '+994', flagCode: 'az', price: '149' },
-            { country: 'Sri Lanka', code: '+94', flagCode: 'lk', price: '179' },
-            { country: 'Myanmar', code: '+95', flagCode: 'mm', price: '179' },
-            { country: 'Nigeria', code: '+234', flagCode: 'ng', price: '99' },
-            { country: 'Israel', code: '+972', flagCode: 'il', price: '199' },
-            { country: 'Comoros', code: '+269', flagcode: 'km', price: '99' }
+            { country: 'Japan', code: '+81', flag: '🇯🇵', isPremium: true, price: '599' },
+            { country: 'USA', code: '+1', flag: '🇺🇸', price: '199' },
+            { country: 'Vietnam', code: '+84', flag: '🇻🇳', price: '299' },
+            { country: 'Colombia', code: '+57', flag: '🇨🇴', price: '249' },
+            { country: 'Netherlands', code: '+31', flag: '🇳🇱', price: '249' },
+            { country: 'Afghanistan', code: '+93', flag: '🇦🇫', price: '99' },
+            { country: 'Nepal', code: '+977', flag: '🇳🇵', price: '119' },
+            { country: 'Zimbabwe', code: '+263', flag: '🇿🇼', price: '119' },
+            { country: 'Egypt', code: '+20', flag: '🇪🇬', price: '199' },
+            { country: 'Senegal', code: '+221', flag: '🇸🇳', price: '99' },
+            { country: 'Venezuela', code: '+58', flag: '🇻🇪', price: '99' },
+            { country: 'Tajikistan', code: '+992', flag: '🇹🇯', price: '199' },
+            { country: 'Azerbaijan', code: '+994', flag: '🇦🇿', price: '149' },
+            { country: 'Sri Lanka', code: '+94', flag: '🇱🇰', price: '179' },
+            { country: 'Myanmar', code: '+95', flag: '🇲🇲', price: '179' },
+            { country: 'Nigeria', code: '+234', flag: '🇳🇬', price: '99' },
+            { country: 'Israel', code: '+972', flag: '🇮🇱', price: '199' },
+            { country: 'Comoros', code: '+269', flag: '🇰🇲', price: '99' }
         ];
         const whatsappNumber = '918812802705';
 
@@ -514,7 +519,7 @@
             const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code})`);
             const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
 
-            const flagHTML = `<img src="https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/${data.flagCode}.svg" alt="Flag of ${data.country}" class="country-flag-img mb-4 rounded shadow-md">`;
+            const flagHTML = `<span class="number-card-flag-emoji mb-4">${data.flag}</span>`;
 
             return `
                 <div class="${cardClasses}">
@@ -543,50 +548,4 @@
             }
         }
 
-        function createMagicParticle(parentEl) {
-            const particle = document.createElement('div');
-            particle.className = 'magic-particles';
-            parentEl.appendChild(particle);
-
-            const size = Math.random() * 8 + 4;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-
-            const startX = Math.random() * parentEl.offsetWidth;
-            const startY = Math.random() * parentEl.offsetHeight;
-            particle.style.left = `${startX}px`;
-            particle.style.top = `${startY}px`;
-
-            const duration = Math.random() * 3 + 2;
-            particle.style.animationDuration = `${duration}s`;
-            particle.style.animationDelay = `-${Math.random() * duration}s`;
-
-            particle.addEventListener('animationend', () => particle.remove());
-        }
-
-        function addParticlesToCards() {
-            const cards = document.querySelectorAll('.number-card, .premium-card');
-            cards.forEach(card => {
-                if (window.getComputedStyle(card).position !== 'relative' && window.getComputedStyle(card).position !== 'absolute') {
-                    card.style.position = 'relative';
-                }
-                for (let i = 0; i < 5; i++) {
-                    createMagicParticle(card);
-                }
-            });
-        }
-
-        window.onload = () => {
-            renderCards();
-            addParticlesToCards();
-        };
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', renderCards);
-        } else {
-            renderCards();
-        }
-    </script>
-</body>
-
-</html>
+        function
