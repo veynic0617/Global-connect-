@@ -510,7 +510,7 @@
                 buttonClasses += ' bg-blue-600 hover:bg-blue-700';
             }
 
-            const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code}). Please assist me with this magical connection.`);
+            const prefilledMessage = encodeURIComponent(`I am interested in acquiring a virtual number for ${data.country} (${data.code})`);
             const waLink = `https://wa.me/${whatsappNumber}?text=${prefilledMessage}`;
 
             const flagHTML = `<img src="https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/${data.flagCode}.svg" alt="Flag of ${data.country}" class="country-flag-img mb-4 rounded shadow-md">`;
